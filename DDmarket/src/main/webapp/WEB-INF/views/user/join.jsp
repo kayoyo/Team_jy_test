@@ -73,21 +73,20 @@
                     <div><input type="text" name="nm" placeholder="이름"></div>
                     <div>
                         <input type="text" name="nick" placeholder="닉네임">
-                        <button type="button" id="nickChk">닉네임 중목체크</button>
+                        <button type="button" id="nickChk" onclick="chkNick()">닉네임 중복체크</button>
+                        <i id="nickClick" class="animate__rubberBand animate__animated fas fa-check" ></i>
+                        <input id="nickUnChk" name="nickUnChk" type="hidden" value="unChk">
                     </div>
-                    
-                    
-                    <!-- t수정ㅇㅇㅇㅇㅇㅇㅇㅇㅇ -->
+                                                  
                     <div>
                     	<input type="text" id="sample4_postcode" name="post" placeholder="우편번호" onclick="sample4_execDaumPostcode()"><br>
 						<input type="text" id="sample4_jibunAddress" name="addr" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
-						<input type="text"  id="sample4_roadAddress" name="road" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
+						<input type="text" id="sample4_roadAddress" name="road" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
+						<input id="postChk" name="postChk" type="hidden" value="unChk">
+						<span id="guide" style="color:#999;display:none"></span>
+						<input type="hidden" id="sample4_detailAddress" placeholder="상세주소">
+						<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
                     </div>
-                    
-                    
-                    
-                    
-                    
                     
                     <div>
                     	<input type="hidden" name="uNum" value="${uNumCode }">
@@ -101,13 +100,12 @@
 </body>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9996836ad8617fab6206b5bcc9625c1f&libraries=services"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 
 window.onload = function() {
-	frm.user_id.focus()
+	frm.email.focus()
 }
 
 
@@ -117,6 +115,7 @@ if (${joinErrMsg != null}) {
 
 $('#idClick').hide();
 $('#emailClick').hide();
+$('#nickClick').hide();
 
 $('#emailChk').click(function() {
 	frm.emailUnChk.value = 'chk'
@@ -126,8 +125,13 @@ $('#idChk').click(function() {
 	frm.idUnChk.value = 'chk'
 })
 
-function chk() {
-			
+$('#nickChk').click(function() {
+	frm.nickUnChk.value = 'chk'
+})
+
+
+function chk() {	
+		
 	if (frm.user_id.value.length < 6) {
 		alert("ID는 5글자 이상 입력해주세요");		
 		frm.user_id.focus();
@@ -226,18 +230,27 @@ function chk() {
 		return false;
 	}
 	
-	if (frm.nm.value.length > 2 && frm.idUnChk.value != 'unChk' && frm.emailUnChk.value != 'unChk') {
+	if (frm.nm.value.length > 2 
+			&& frm.idUnChk.value != 'unChk' 
+			&& frm.emailUnChk.value != 'unChk'
+			&& frm.nickUnChk.value != 'unChk') {
+		
 		alert('회원가입이 되었습니다');
 		location.href='/user/login';	
 	}
 	
 	if(frm.emailUnChk.value == 'unChk') {
-		alert('이메일 중복확인을 해주세요');
+		alert('이메일 중복확인을 클릭해주세요');
 		return false;
 	}
 	
 	if(frm.idUnChk.value == 'unChk') {
-		alert('아이디 중복확인을 해주세요')
+		alert('아이디 중복확인을 클릭해주세요')
+		return false;
+	}
+	
+	if(frm.nickUnChk.value == 'unChk') {
+		alert('닉네임 중복확인을 클릭해주세요')
 		return false;
 	}
 }
@@ -266,7 +279,7 @@ function chkEmail() {
 					frm.email.focus();
 					return false
 				}
-			}			
+			}						
 			
 			$('#emailClick').show();			
 			frm.email.focus()			
@@ -278,11 +291,7 @@ function chkEmail() {
 			frm.email.focus()
 	
 			
-		} else if(res.data == '3'){
-			alert('이메일을 입력해 주세요')
-			frm.email.focus()
-			
-		} else if(res.date == '4') {
+		} else {
 			alert('이메일을 다시 확인하여 주세요')
 			frm.email.focus()
 			return false;
@@ -340,6 +349,47 @@ function chkId() {
 }
 
 
+function chkNick() {
+	const nick = frm.nick.value
+	axios.post('/user/ajaxNickChk', {
+		
+			nick
+			
+	}).then(function(res) {
+		console.log(res)
+		if(res.data == '1') { //아이디 없음 (사용가능)
+										
+						
+			if (frm.nick.value.length == 0 || frm.nick.value.length < 2) {
+				alert("닉네임은 2글자 이상입니다");
+				frm.nick.focus();
+				return false;
+			} 
+			
+			if (frm.nick.value.length > 13) {
+				alert("닉네임이 너무 깁니다");
+				frm.nick.focus();
+				return false;
+			}
+			
+			$('#nickClick').show();	
+			
+			
+		} else if(res.data == '2') { // 닉네임 중복됨	
+			$('#nickClick').hide();
+	
+			alert('사용할수 없는 닉네임 입니다.');
+			frm.nick.value = '';
+			frm.nick.focus();
+			
+		} else {
+			alert('닉네임을 다시 확인해 주세요');
+			frm.nick.value = '';
+			frm.nick.focus();
+		}
+	})
+}
+
 function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -369,6 +419,13 @@ function sample4_execDaumPostcode() {
             document.getElementById("sample4_roadAddress").value = roadAddr;
             document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
             
+            // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+            if(roadAddr !== ''){
+                document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+            } else {
+                document.getElementById("sample4_extraAddress").value = '';
+            }
+
             var guideTextBox = document.getElementById("guide");
             // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
             if(data.autoRoadAddress) {
@@ -386,7 +443,7 @@ function sample4_execDaumPostcode() {
             }
         }
     }).open();
-}	
+}
 
 </script>
 </html>

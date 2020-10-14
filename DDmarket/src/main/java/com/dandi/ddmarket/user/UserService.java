@@ -21,20 +21,33 @@ public class UserService {
 	// 코드 좀 거지같음 수정하기
 	public int emailChk(UserPARAM param, HttpSession hs) {
 		
-		if(param.getEmail().equals("")) {
-			return 3;
-		}		
 		UserDMI dbUser = mapper.emailChk(param);
 		
 		if(dbUser == null) {
 			return 1; 
 		}		
-		if(dbUser.getEmail().equals(param.getEmail())) {
-			return 2;
-		}		
-		return 4;
-	}
 		
+		if(dbUser.getEmail().equals(param.getEmail())) {
+			return 2;		
+		}		
+		
+		return 0;
+	}
+	
+	public int nickChk(UserPARAM param) {
+				
+		UserDMI dbUser = mapper.nickChk(param);
+		
+		if(dbUser == null) {
+			return 1;
+		}
+		
+		if(dbUser.getNick().equals(param.getNick())) {
+			return 2;
+		}
+		
+		return 0;
+	}
 		
 	// SUCCESS 1:로그인 성공,  NO_ID 2:아이디 없음,  NO_PW 3:비번 틀림
 	public int login(UserPARAM param) {

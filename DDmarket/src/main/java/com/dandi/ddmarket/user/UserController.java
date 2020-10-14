@@ -35,6 +35,10 @@ public class UserController {
 	private MailSendService mss;  // 현재 이메일 부분 주석처리해놔서 노란줄 끄이는거임
 	
 	
+	
+	/*
+	 *  	hs 세션 값 확인해보고 불필요하면 지우기
+	 */
 	// 아이디 중복체크 (aJax) 
 	@RequestMapping(value="/ajaxIdChk", method=RequestMethod.POST)
 	@ResponseBody	
@@ -53,7 +57,18 @@ public class UserController {
 		return String.valueOf(result);
 	}
 	
-	
+	// 닉네임 중복체크(aJax)
+	@RequestMapping(value="/ajaxNickChk", method=RequestMethod.POST)
+	@ResponseBody	
+	public String ajaxNickChk(@RequestBody UserPARAM param, HttpSession hs) {
+		
+		int result = service.nickChk(param);
+		
+		if(result == 0) {
+			System.out.println("result : " + result);
+		}
+		return String.valueOf(result);
+	}
 	
 	
 	//	로그인
@@ -63,8 +78,7 @@ public class UserController {
 		// 메소드 다시 만들기  // 또는 인터셉터에서 추후에 걸러줄것임 @@@@@@@@
 		UserVO param = SecurityUtils.getLoginUser(request);
 				
-		if(param != null) {
-			model.addAttribute("view", "/index/index");
+		if(param != null) {			
 			return ViewRef.INDEX_MAIN;
 		}
 		
@@ -103,7 +117,7 @@ public class UserController {
 		model.addAttribute("joinErrMsg"); // 서버에러시 띄우는 alert창
 		model.addAttribute("view",ViewRef.USER_JOIN);
 		
-		return ViewRef.DEFAULT_TEMP;
+		return ViewRef.MENUTEMP;
 	}	
 
 	@RequestMapping(value="/join", method = RequestMethod.POST) 

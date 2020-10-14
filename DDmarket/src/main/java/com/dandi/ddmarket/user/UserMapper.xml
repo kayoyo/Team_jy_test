@@ -26,11 +26,19 @@
 		WHERE email = #{email}
 	</select>
 	
-	<!-- 이메일 아작스 -->
+	<!-- 이메일 중복체크 (ajax) -->
 	<select id="emailChk" parameterType="UserPARAM" resultType="UserDMI">
 		SELECT email FROM t_user		
 		WHERE email = #{email}
 	</select>
+	
+	<!-- 닉네임 중복체크 (ajax) -->
+	<select id="nickChk" parameterType="UserPARAM" resultType="UserDMI">
+		SELECT nick FROM t_user		
+		WHERE nick = #{nick}
+	</select>
+	
+	
 
 						<!-- insert -->
 						 
