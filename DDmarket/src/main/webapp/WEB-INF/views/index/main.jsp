@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 </head>
 <body>
+	
+
 	<main>
 	    <section class="main-section-banner">
 	        <!-- Slider main container -->
@@ -37,50 +39,19 @@
 	            <div class="swiper-wrapper">
 	                <!-- Slides -->
 	                <div class="swiper-slide">
-	                    <article class="card-wrap">
-	                        <a href="#">
-	                            <div class="card-pic"><img src="/res/img/gookpap.jpg"></div>
-	                            <div class="card-desc">
-	                                <h2 class="card-title">돼지국밥 세트</h2>
-	                                <span class="card-border"></span>
-	                                <span class="card-price">10,000원</span>
-	                                <span class="card-r_dt">3시간전</span>
-	                            </div>
-	                        </a>
-	                    </article>
-	                    <article class="card-wrap">
-	                        <a href="#">
-	                            <div class="card-pic"><img src="/res/img/gookpap.jpg"></div>
-	                            <div class="card-desc">
-	                                <h2 class="card-title">돼지국밥 세트</h2>
-	                                <span class="card-border"></span>
-	                                <span class="card-price">10,000원</span>
-	                                <span class="card-r_dt">3시간전</span>
-	                            </div>
-	                        </a>
-	                    </article>
-	                    <article class="card-wrap">
-	                        <a href="#">
-	                            <div class="card-pic"><img src="/res/img/gookpap.jpg"></div>
-	                            <div class="card-desc">
-	                                <h2 class="card-title">돼지국밥 세트</h2>
-	                                <span class="card-border"></span>
-	                                <span class="card-price">10,000원</span>
-	                                <span class="card-r_dt">3시간전</span>
-	                            </div>
-	                        </a>
-	                    </article>
-	                    <article class="card-wrap">
-	                        <a href="#">
-	                            <div class="card-pic"><img src="/res/img/gookpap.jpg"></div>
-	                            <div class="card-desc">
-	                                <h2 class="card-title">돼지국밥 세트</h2>
-	                                <span class="card-border"></span>
-	                                <span class="card-price">10,000원</span>
-	                                <span class="card-r_dt">3시간전</span>
-	                            </div>
-	                        </a>
-	                    </article>
+	                	<c:forEach var="i" begin="0" end="3">
+		                    <article class="card-wrap">
+		                        <a href="#">
+		                            <div class="card-pic"><img src="/res/img/gookpap.jpg"></div>
+		                            <div class="card-desc">
+		                                <h2 class="card-title">돼지국밥 세트</h2>
+		                                <span class="card-border"></span>
+		                                <span class="card-price">10,000원</span>
+		                                <span class="card-r_dt">3시간전</span>
+		                            </div>
+		                        </a>
+		                    </article>
+	                    </c:forEach>
 	                </div>
 	                <div class="swiper-slide">Slide 2</div>
 	                <div class="swiper-slide">Slide 3</div>
