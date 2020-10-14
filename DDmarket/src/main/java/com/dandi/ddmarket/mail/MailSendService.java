@@ -44,7 +44,7 @@ public class MailSendService {
 				
 		try {
             MailUtils sendMail = new MailUtils(mailSender);
-            sendMail.setSubject("HiBaby 비밀번호 인증 코드");
+            sendMail.setSubject("DDMarket 비밀번호 인증 코드");
             sendMail.setText(new StringBuffer().append("<h1>[ 인증번호를 확인해주세요 ]</h1><hr>")					
 					.append("<h2 style='width: 170px; background-color: green; color: black;'> 인증번호 : " + authKey + "</h2>")
 					.toString());
@@ -67,7 +67,7 @@ public class MailSendService {
 		
 		try {
             MailUtils sendMail = new MailUtils(mailSender);
-            sendMail.setSubject("HiBaby 아이디가 도착하였습니다. ");
+            sendMail.setSubject("DDMarket 아이디가 도착하였습니다. ");
             sendMail.setText(new StringBuffer().append("<h1>[ ID를 확인해 주세요 ]</h1><hr>")					
 					.append("<h2 style='width: 170px; color: black;'> ID : " + user_id + "</h2>")
 					.toString());

@@ -142,7 +142,7 @@ public class UserController {
 		model.addAttribute("Email");		
 		model.addAttribute("findPwMsg");
 		
-		return ViewRef.DEFAULT_TEMP;
+		return ViewRef.MENUTEMP;
 	}
 	
 	@RequestMapping(value="/findPw", method = RequestMethod.POST)
@@ -178,9 +178,8 @@ public class UserController {
 		cerCodeCount += 1; 
 		
 		model.addAttribute("view","/user/cerCode");
-		model.addAttribute("cerCodeCount"); 
-		//model.addAttribute("cerCodeMsg");
-		return ViewRef.DEFAULT_TEMP;
+		model.addAttribute("cerCodeCount");
+		return "/template/originBackGround";
 	}	
 
 	@RequestMapping(value="/cerCode", method=RequestMethod.POST) // post 확인
@@ -206,7 +205,7 @@ public class UserController {
 	public String changePw(Model model, UserPARAM param) {
 		model.addAttribute("view", "/user/changePw");
 		model.addAttribute("changePwMsg");
-		return ViewRef.DEFAULT_TEMP; 
+		return ViewRef.MENUTEMP; 
 	}
 	
 	@RequestMapping(value="/changePw", method = RequestMethod.POST)
@@ -235,7 +234,7 @@ public class UserController {
 	@RequestMapping(value="findId", method = RequestMethod.GET)
 	public String findId(Model model) {
 		model.addAttribute("view",ViewRef.USER_FINDID);
-		return ViewRef.DEFAULT_TEMP;
+		return ViewRef.MENUTEMP;
 	}
 	
 	@RequestMapping(value="findId", method = RequestMethod.POST)
