@@ -1,0 +1,23 @@
+
+CREATE TABLE t_user(
+	i_user INT UNSIGNED AUTO_INCREMENT, -- 회원 고유 pk값
+	user_id VARCHAR(20) NOT NULL UNIQUE, -- 회원 아이디 (중복방지)
+	user_pw VARCHAR(70) NOT NULL, -- 회원 비밀번호 (암호화 값이 들어갈수 있게 크기 70잡음)
+	salt VARCHAR(80) NOT NULL,
+	nick VARCHAR(15) NOT NULL, -- 유저 닉네임
+	nm VARCHAR(10) NOT NULL, -- 회원 이름 (가끔 특이한 이름도 있으니 크기 12로 줬음)	
+	email VARCHAR(30) NOT NULL,	-- 회원 메일	
+	post VARCHAR(30) NOT NULL, -- 우편번호
+	addr VARCHAR(30) NOT NULL, -- 지번
+	road VARCHAR(30) NOT NULL, -- 도로명	
+	joinPass INT(2) NOT NULL,
+	uNum INT(9) NOT NULL,
+	favI_cg_1 INT DEFAULT 1, -- 선호카테고리 1 	
+	favI_cg_2 INT DEFAULT 1, -- 선호카테고리 2
+	favI_cg_3 INT DEFAULT 1, -- 선호카테고리 3 	 																					
+	grade DOUBLE, -- 회원 신용등급( 회원의 거래 청결유무 // 테이블 따로 뺴서 관리해도됨 )	
+	profile_img VARCHAR(50), -- 회원 사진 (등록 여부 자유, 사진없을시 무 마켓 대표 default이미지 정하기)	
+	r_dt DATETIME DEFAULT NOW(), -- 회원 가입시 등록되는 날짜
+	m_dt DATETIME DEFAULT NOW(), -- ""  수정시      ""
+	PRIMARY KEY (i_user)
+);
