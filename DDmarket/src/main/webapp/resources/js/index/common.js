@@ -3,7 +3,7 @@
  */
 
 // 헤더 - 카테고리 드랍다운
-function myFunction() {
+  function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
