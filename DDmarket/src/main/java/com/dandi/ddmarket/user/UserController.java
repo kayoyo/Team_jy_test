@@ -54,7 +54,6 @@ public class UserController {
 		
 		int result = service.emailChk(param, hs);	
 		return String.valueOf(result);
-		
 	}
 	
 	// 닉네임 중복체크(aJax)
@@ -71,11 +70,11 @@ public class UserController {
 	}
 	
 	// 로그아웃
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout(Model model, HttpSession hs) {
+	@RequestMapping("/logout")
+	public String logout(Model model, HttpSession hs, RedirectAttributes ra) {
 		hs.invalidate();
-		model.addAttribute("view",ViewRef.INDEX_MAIN);
-		return "redirect:/" + ViewRef.DEFAULT_TEMP;
+		model.addAttribute("logoutMsg", "로그아웃 되었습니다");
+		return ViewRef.ORIGIN_TEMP;
 	}
 	
 	
@@ -269,6 +268,7 @@ public class UserController {
 	// myPage (테스트용)
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String myPage(Model model) {
+		
 		return "/user/myPage";
 	}
 	

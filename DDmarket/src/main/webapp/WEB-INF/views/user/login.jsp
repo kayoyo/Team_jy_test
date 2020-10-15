@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/res/css/common/common.css">
 </head>
 <body>
-	<div id="container">
+	<div class="container">
         <main id="main">
             <div class="div-logo"><a href="/index/main"><img class="logo" src="/res/img/logo.jpg"></a></div>
             <form id="frm" action="/user/login" class="div-input" method="post">

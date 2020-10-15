@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <!--(header / nav) : 머리글 / (section / article ) : 본문 / (aside) : 사이드 본문 / (footer) : 바닥글-->
 <body>
 	<header id="header">
-		<div id="header-title">
+		<div id="header-title">			
 			<a href="/index/main"><img class="logo" src="/res/img/logo.jpg"></a>
 			<div id="search-wrap">
 				<input type="text" placeholder="상품명, 지역명 검색">
@@ -26,8 +27,9 @@
 					data-inline="false" data-icon="mdi-light:account"
 					style="color: #3b73c8; font-size: 50px;"></span></a> <a href="#"><span
 					class="iconify icon-cart" data-inline="false"
-					data-icon="mdi-light:cart" style="color: #3b73c8; font-size: 50px;"></span></a>
-			</div>
+					data-icon="mdi-light:cart" style="color: #3b73c8; font-size: 50px;"></span>
+				</a>
+			</div>			
 		</div>
 		<div id="header-cd">
 			<div class="dropdown">
@@ -49,9 +51,18 @@
 			</div>
 		</div>
 		<div id="header-user">
-			<span class="header-user-text">
-				<a href="/user/login">로그인</a> | <a href="/user/join">회원가입</a>
-			</span>
+			<c:choose>
+				<c:when test="${loginUser == null }">
+					<span class="header-user-text">
+						<a href="/user/login">로그인</a> | <a href="/user/join">회원가입</a>
+					</span>
+				</c:when>
+				<c:when test="${loginUser != null }">
+					<span class="header-user-text">
+						<a href="/user/logout">로그아웃</a> | <a href="#">단디톡</a>
+					</span>
+				</c:when>
+			</c:choose>
 		</div>
 	</header>
 	
@@ -119,4 +130,5 @@
 </body>
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script src="/res/js/index/common.js"></script>
+
 </html>

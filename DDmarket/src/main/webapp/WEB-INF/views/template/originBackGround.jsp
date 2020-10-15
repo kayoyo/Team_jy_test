@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,10 +21,20 @@
 	<div class="backContainer">
 		<img class="logo" src="/res/img/logo.jpg">
 		<main>
-	    	<section>
-	    		<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
-	    	</section>			      
+			<c:if test="${view != null }">
+		    	<section>
+		    		<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
+		    	</section>			      
+	    	</c:if>
 	    </main>
 	</div>
 </body>
+<script>
+
+if(${logoutMsg != null}) {
+	alert('${logoutMsg}');
+	location.href="/index/main";
+}
+
+</script>
 </html>

@@ -1,3 +1,15 @@
+@charset "UTF-8";
+
+#container {
+    width: 100%; margin: 0px auto 0 auto;
+    margin-bottom: 0; }
+main {
+    width: 1190px; margin: 0 auto;
+    margin-bottom: 300px; display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center; }
+
 input { border: 1px solid #C4C4C4;
     border-radius: 3px;}
 input::placeholder {
@@ -6,26 +18,21 @@ font-size: 13px;
 padding-left: 14px;
 color: #AEAEAE;
 }
-
 .FrmJoin { width: 86%; 
 display: flex;
 flex-flow: column wrap;
 justify-content: center;
 align-items: center;}
-
 .title { 
 font-size: 22px;
 width: 74%; 
 justify-content: flex-start; }
-
 .div-logo { 
 width: 82%; margin-bottom: 50px;
 display: flex; justify-content: flex-start; }
-
 .line {
     border-bottom: 1px solid #A5A2A2; 
     width: 80%; display: block; margin: 5px 0 10px; }
-    
 /* 약관 동의 */
 .div-chkbox { 
 color: #C4C4C4;
@@ -70,19 +77,19 @@ height: 34px; width: 120px;
 line-height: 1; font-weight: bold;
 background: #3B73C8; color: snow; }
 .div-input input { 
-margin-bottom: 18px;
+margin-bottom: 15px;
 width: 350px; 
 height: 30px; }
-.div-input #addr_front { 
-width: 80px; margin-right: 25px;
-height: 30px; }
-.div-input #addr_back {
-margin-left: 15px;
-width: 280px;
-height: 30px; }
+.div-input .addr_front { 
+    width: 120px; margin-right: 25px;
+    height: 30px; }
+.div-input .addr_back {
+    display: block;
+    width: 350px;
+    height: 30px; }
 #joinBtn { 
 font-size: 20px;
 font-weight: bold;
 height: 45px; width: 320px;
-margin-top: 80px;
+margin-top: 70px;
 background: #3B73C8; color: snow; }

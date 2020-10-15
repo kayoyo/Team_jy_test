@@ -92,11 +92,11 @@
 							<article class="card-wrap">
 								<a href="#">
 									<div class="card-pic">
-										<img src="/res/img/gookpap.jpg">
+										<img src="/res/img/flower.jpg">
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title">돼지국밥 세트</h2>
-										<span class="card-border"></span> <span class="card-price">10,000원</span>
+										<h2 class="card-title">만수네 꽃집</h2>
+										<span class="card-border"></span> <span class="card-price">120,000원</span>
 										<span class="card-r_dt">3시간전</span>
 									</div>
 								</a>
@@ -164,12 +164,12 @@
 										<article class="card-wrap">
 											<a href="#">
 												<div class="card-pic">
-													<img src="/res/img/gookpap.jpg">
+													<img src="/res/img/monitor.jpg">
 												</div>
 												<div class="card-desc">
-													<h2 class="card-title">돼지국밥 세트</h2>
-													<span class="card-border"></span> <span class="card-price">10,000원</span>
-													<span class="card-r_dt">3시간전</span>
+													<h2 class="card-title">덕만이의 전자관</h2>
+													<span class="card-border"></span> <span class="card-price">111,500원</span>
+													<span class="card-r_dt">11시간전</span>
 												</div>
 											</a>
 										</article>
@@ -218,12 +218,12 @@
 							<article class="card-wrap">
 								<a href="#">
 									<div class="card-pic">
-										<img src="/res/img/gookpap.jpg">
+										<img src="/res/img/kakaoCon.jpg">
 									</div>
 									<div class="card-desc">
-										<h2 class="card-title">돼지국밥 세트</h2>
-										<span class="card-border"></span> <span class="card-price">10,000원</span>
-										<span class="card-r_dt">3시간전</span>
+										<h2 class="card-title">카카오콘 인형</h2>
+										<span class="card-border"></span> <span class="card-price">100,000원</span>
+										<span class="card-r_dt">5시간전</span>
 									</div>
 								</a>
 							</article>
@@ -245,6 +245,10 @@
 		</section>
 	</main>
 </body>
+<script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/res/js/index/index.js"></script>
+<script>
+	
+</script>
 </html>

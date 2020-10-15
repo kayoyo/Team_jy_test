@@ -53,7 +53,5 @@ function chk() {
 		}
 	}
 }
-
-
 </script>
 </html>
