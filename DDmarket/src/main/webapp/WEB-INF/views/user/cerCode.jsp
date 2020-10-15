@@ -8,6 +8,7 @@
 <title>모달테스트</title>
 </head>
 <style>
+
 	.modal {
 	    display: none;
 	    position: fixed;
@@ -29,6 +30,7 @@
 	    border: 1px solid #888;
 	    width: 30%;                           
 	}
+	
 	.pop_bt {
 		margin-top: 30px;
 		width: 200px;
@@ -39,6 +41,7 @@
 	#cerCodeCount {
 		color: red;
 	}
+	
 </style>
 <body>
 	<div id="myModal" class="modal">
@@ -53,7 +56,7 @@
 		      	<div id="cerCodeCount">${cerCodeCount }회 실패</div>
 		      </c:if>
 		      
-		      <!-- Modal body -->
+		    <!-- Modal body -->
 		    <div class="modal-body">
 		    	<form id="frm" action="/user/cerCode" method="post" onsubmit="return chk()">
 		    		<input type="text" name="cerCode" placeholder="코드입력">

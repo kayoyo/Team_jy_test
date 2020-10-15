@@ -55,6 +55,7 @@ public class UserController {
 		
 		int result = service.emailChk(param, hs);	
 		return String.valueOf(result);
+		
 	}
 	
 	// 닉네임 중복체크(aJax)

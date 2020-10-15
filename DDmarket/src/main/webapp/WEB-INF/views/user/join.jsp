@@ -80,6 +80,7 @@
                                                   
                     <div>
                     	<input type="text" id="sample4_postcode" name="post" placeholder="우편번호" onclick="sample4_execDaumPostcode()"><br>
+                    	<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
 						<input type="text" id="sample4_jibunAddress" name="addr" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
 						<input type="text" id="sample4_roadAddress" name="road" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
 						<input id="postChk" name="postChk" type="hidden" value="unChk">
@@ -117,6 +118,15 @@ $('#idClick').hide();
 $('#emailClick').hide();
 $('#nickClick').hide();
 
+
+$('#sample4_jibunAddress').hide();
+$('#sample4_roadAddress').hide();
+
+$('#sample4_postcode').click(function() {
+	frm.addrUnChk.value = 'chk'
+})
+
+
 $('#emailChk').click(function() {
 	frm.emailUnChk.value = 'chk'
 })
@@ -131,6 +141,19 @@ $('#nickChk').click(function() {
 
 
 function chk() {	
+	if($('#chk1').is(":checked") == false){
+	    alert('약간동의를 체크해 주세요');
+	    return false;
+	    
+	} else if($('#chk2').is(":checked") == false) {
+		alert('약간동의를 체크해 주세요');
+		return false;
+		
+	} else if($('#chk3').is(":checked") == false) {
+		alert('약간동의를 체크해 주세요');
+		return false;
+	}
+	
 		
 	if (frm.user_id.value.length < 6) {
 		alert("ID는 5글자 이상 입력해주세요");		
@@ -233,7 +256,8 @@ function chk() {
 	if (frm.nm.value.length > 2 
 			&& frm.idUnChk.value != 'unChk' 
 			&& frm.emailUnChk.value != 'unChk'
-			&& frm.nickUnChk.value != 'unChk') {
+			&& frm.nickUnChk.value != 'unChk'
+			) {
 		
 		alert('회원가입이 되었습니다');
 		location.href='/user/login';	
@@ -252,7 +276,7 @@ function chk() {
 	if(frm.nickUnChk.value == 'unChk') {
 		alert('닉네임 중복확인을 클릭해주세요')
 		return false;
-	}
+	}	
 }
 
 // 이메일 중복확인
@@ -357,7 +381,7 @@ function chkNick() {
 			
 	}).then(function(res) {
 		console.log(res)
-		if(res.data == '1') { //아이디 없음 (사용가능)
+		if(res.data == '1') { // 닉네임 없음 (사용가능)
 										
 						
 			if (frm.nick.value.length == 0 || frm.nick.value.length < 2) {
@@ -393,6 +417,11 @@ function chkNick() {
 function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
+        	if(frm.addrUnChk.value == 'chk') {
+        		$('#sample4_jibunAddress').show();
+        		$('#sample4_roadAddress').show();
+        	}
+        	
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
             // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
@@ -444,6 +473,5 @@ function sample4_execDaumPostcode() {
         }
     }).open();
 }
-
 </script>
 </html>
