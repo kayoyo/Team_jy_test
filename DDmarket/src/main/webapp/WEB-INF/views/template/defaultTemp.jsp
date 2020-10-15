@@ -12,7 +12,7 @@
 <body>
 	<header id="header">
 		<div id="header-title">
-			<a href="#"><img class="logo" src="/res/img/logo.jpg"></a>
+			<a href="/index/main"><img class="logo" src="/res/img/logo.jpg"></a>
 			<div id="search-wrap">
 				<input type="text" placeholder="상품명, 지역명 검색">
 				<button id="header-search-btn">
@@ -35,16 +35,23 @@
 					data-inline="false" data-icon="mdi-light:menu"
 					style="color: #3b73c8; font-size: 50px;"></span>
 				<div id="myDropdown" class="dropdown-content">
-					<a href="#">여성의류</a> <a href="#">남성의류</a> <a href="#">패션잡화</a> <a
-						href="#">도서ㅣ티켓</a> <a href="#">생활ㅣ가구</a> <a href="#">디지털ㅣ가전</a> <a
-						href="#">뷰티ㅣ미용</a> <a href="#">유아동ㅣ출산</a> <a href="#">기타</a> <a
-						href="#">무료 나눔</a>
+					<a href="#">여성의류</a>
+					<a href="#">남성의류</a>
+					<a href="#">패션잡화</a>
+					<a href="#">도서ㅣ티켓</a>
+					<a href="#">생활ㅣ가구</a>
+					<a href="#">디지털ㅣ가전</a>
+					<a href="#">뷰티ㅣ미용</a>
+					<a href="#">유아동ㅣ출산</a>
+					<a href="#">기타</a>
+					<a href="#">무료 나눔</a>
 				</div>
 			</div>
 		</div>
 		<div id="header-user">
-			<span class="header-user-text"><a href="#">로그인</a> ㅣ <a
-				href="#">회원가입</a></span>
+			<span class="header-user-text">
+				<a href="/user/login">로그인</a> | <a href="/user/join">회원가입</a>
+			</span>
 		</div>
 	</header>
 	

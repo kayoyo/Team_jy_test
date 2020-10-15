@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
 </head>
+<!-- 비밀번호 찾기 인증코드 입력할때 백그라운드 -->
 <style>		
 	img {
 		background-color: #6e6868;

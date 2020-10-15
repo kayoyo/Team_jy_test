@@ -32,13 +32,12 @@ public class UserController {
 	private UserService service;	
 	
 	@Autowired
-	private MailSendService mss;  // 현재 이메일 부분 주석처리해놔서 노란줄 끄이는거임
-	
-	
-	
+	private MailSendService mss;  
+		
 	/*
-	 *  	hs 세션 값 확인해보고 불필요하면 지우기
+	 *  	아작스에 hs 세션 값 확인해보고 불필요하면 지우기
 	 */
+	
 	// 아이디 중복체크 (aJax) 
 	@RequestMapping(value="/ajaxIdChk", method=RequestMethod.POST)
 	@ResponseBody	
@@ -71,6 +70,14 @@ public class UserController {
 		return String.valueOf(result);
 	}
 	
+	// 로그아웃
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logout(Model model, HttpSession hs) {
+		hs.invalidate();
+		model.addAttribute("view",ViewRef.INDEX_MAIN);
+		return "redirect:/" + ViewRef.DEFAULT_TEMP;
+	}
+	
 	
 	//	로그인
 	@RequestMapping(value="/login", method = RequestMethod.GET)
@@ -84,7 +91,7 @@ public class UserController {
 		}
 		
 		model.addAttribute("view",ViewRef.USER_LOGIN);
-		return "/template/menuTemp";
+		return ViewRef.MENU_TEMP;
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
@@ -94,7 +101,7 @@ public class UserController {
 		
 		if(result == Const.SUCCESS) {
 			hs.setAttribute(Const.LOGIN_USER, param);
-			return "redirect:/index/main";
+			return "redirect:/" + ViewRef.INDEX_MAIN;
 		}
 		
 		String msg = null;
@@ -118,7 +125,7 @@ public class UserController {
 		model.addAttribute("joinErrMsg"); // 서버에러시 띄우는 alert창
 		model.addAttribute("view",ViewRef.USER_JOIN);
 		
-		return ViewRef.MENUTEMP;
+		return ViewRef.MENU_TEMP;
 	}	
 
 	@RequestMapping(value="/join", method = RequestMethod.POST) 
@@ -143,7 +150,7 @@ public class UserController {
 		model.addAttribute("Email");		
 		model.addAttribute("findPwMsg");
 		
-		return ViewRef.MENUTEMP;
+		return ViewRef.MENU_TEMP;
 	}
 	
 	@RequestMapping(value="/findPw", method = RequestMethod.POST)
@@ -166,7 +173,7 @@ public class UserController {
 		} else { // 정보가 '틀렸다면'			
 			ra.addFlashAttribute("user_id", param.getUser_id());
 			ra.addFlashAttribute("email", param.getEmail());
-			model.addAttribute("view","/user/findPw");
+			model.addAttribute("view",ViewRef.USER_FINDPW);
 			ra.addFlashAttribute("findPwMsg","입력하신 정보를 다시 확인해 주세요");
 			return "redirect:/" + ViewRef.USER_FINDPW;
 		}
@@ -206,7 +213,7 @@ public class UserController {
 	public String changePw(Model model, UserPARAM param) {
 		model.addAttribute("view", "/user/changePw");
 		model.addAttribute("changePwMsg");
-		return ViewRef.MENUTEMP; 
+		return ViewRef.MENU_TEMP; 
 	}
 	
 	@RequestMapping(value="/changePw", method = RequestMethod.POST)
@@ -235,7 +242,7 @@ public class UserController {
 	@RequestMapping(value="findId", method = RequestMethod.GET)
 	public String findId(Model model) {
 		model.addAttribute("view",ViewRef.USER_FINDID);
-		return ViewRef.MENUTEMP;
+		return ViewRef.MENU_TEMP;
 	}
 	
 	@RequestMapping(value="findId", method = RequestMethod.POST)
@@ -256,6 +263,7 @@ public class UserController {
 			return "redirect:/" + ViewRef.USER_FINDID;
 		}
 	}
+	
 	
 	
 	// myPage (테스트용)

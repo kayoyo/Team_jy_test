@@ -4,7 +4,7 @@ package com.dandi.ddmarket;
 public class ViewRef {	
 	//  /user = header, footer
 	public static final String DEFAULT_TEMP = "/template/defaultTemp"; 
-	public static final String MENUTEMP = "/template/menuTemp";  
+	public static final String MENU_TEMP = "/template/menuTemp";  
 	
 	
 	// /user
@@ -18,6 +18,6 @@ public class ViewRef {
 	
 	
 	// /index 
-	public static final String INDEX_MAIN = "index/main"; // 첫화면 선택부
+	public static final String INDEX_MAIN = "index/main"; // 단디마켓 메인화면
 	
 }
