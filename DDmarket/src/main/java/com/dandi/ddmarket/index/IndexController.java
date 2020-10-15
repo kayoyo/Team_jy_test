@@ -11,10 +11,19 @@ import com.dandi.ddmarket.ViewRef;
 @RequestMapping("/index")
 public class IndexController {
 
+	// 메인페이지
 	@RequestMapping(value="/main")
 	public String index(Model model, RedirectAttributes ra) {
 		
 		model.addAttribute("view",ViewRef.INDEX_MAIN);
 		return ViewRef.DEFAULT_TEMP;
-	}	
+	}
+	
+	// 각종 메시지 받아서 처리할 alert창 페이지
+	@RequestMapping(value="/oringin")
+	public String origin(Model model, RedirectAttributes ra) {
+		
+		model.addAttribute("view",ViewRef.INDEX_MAIN);
+		return ViewRef.DEFAULT_TEMP;
+	}
 }

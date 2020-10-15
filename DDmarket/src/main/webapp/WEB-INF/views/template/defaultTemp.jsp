@@ -80,7 +80,7 @@
 		<div id="footer-container">
 			<div id="footer-left">
 				<div id="footer-logo">
-					<a href="#"><img src="/res/img/footer_logo.jpg"></a>
+					<a href="/index/main"><img src="/res/img/footer_logo.jpg"></a>
 				</div>
 				<ul class="footer-left-list footer-list">
 					<li class="footer-left-list-item"><span

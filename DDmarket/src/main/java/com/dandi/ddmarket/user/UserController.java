@@ -71,9 +71,10 @@ public class UserController {
 	
 	// 로그아웃
 	@RequestMapping("/logout")
-	public String logout(Model model, HttpSession hs, RedirectAttributes ra) {
+	public String logout(Model model, HttpSession hs, RedirectAttributes ra, HttpServletRequest request) {
+		
 		hs.invalidate();
-		model.addAttribute("logoutMsg", "로그아웃 되었습니다");
+		model.addAttribute("logoutMsg", "로그아웃 되었습니다");		
 		return ViewRef.ORIGIN_TEMP;
 	}
 	
@@ -82,11 +83,12 @@ public class UserController {
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model, HttpServletRequest request) {
 		// 로그인이 되어있다면 로그인페이지로 갈수없게 막아놓음 
-		// 메소드 다시 만들기  // 또는 인터셉터에서 추후에 걸러줄것임 @@@@@@@@
+		// 메소드 다시 만들기  // 또는 인터셉터에서 추후에 걸러주기
 		UserVO param = SecurityUtils.getLoginUser(request);
 				
-		if(param != null) {			
-			return ViewRef.INDEX_MAIN;
+		if(param != null) {	
+			model.addAttribute("isLogin","로그인이 되어있는상태에서는 로그인페이지로 갈수없습니다");
+			return ViewRef.ORIGIN_TEMP;
 		}
 		
 		model.addAttribute("view",ViewRef.USER_LOGIN);
@@ -186,7 +188,7 @@ public class UserController {
 		
 		model.addAttribute("view","/user/cerCode");
 		model.addAttribute("cerCodeCount");
-		return "/template/originBackGround";
+		return ViewRef.ORIGIN_TEMP;
 	}	
 
 	@RequestMapping(value="/cerCode", method=RequestMethod.POST) // post 확인
@@ -253,7 +255,7 @@ public class UserController {
 		if(result == Const.SUCCESS) {			
 			dbUser.setUser_id((String)hs.getAttribute("user_id")); 
 			mss.sendAutoMailFindId(param.getEmail(), dbUser.getUser_id());
-			hs.removeAttribute("user_id");
+			hs.removeAttribute("user_id"); // service에서 날아온 세션을 다사용했으니 세션삭제
 			ra.addFlashAttribute("findIdSuccessMsg", "가입하신 이메일로 아이디가 전송되었습니다");
 			return "redirect:/" + ViewRef.USER_FINDID;
 			
@@ -264,12 +266,11 @@ public class UserController {
 	}
 	
 	
-	
-	// myPage (테스트용)
+	// 마이페이지
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String myPage(Model model) {
-		
-		return "/user/myPage";
+		model.addAttribute("view",ViewRef.USER_MYPAGE);
+		return "redirect:/" + ViewRef.MENU_TEMP;
 	}
 	
 }

@@ -31,9 +31,16 @@
 </body>
 <script>
 
+// 로그아웃 메세지 띄움
 if(${logoutMsg != null}) {
 	alert('${logoutMsg}');
 	location.href="/index/main";
+}
+
+//로그인상태에서 url검색으로 로그인창 갔을시
+if(${isLogin != null}) {
+	alert('${isLogin}');
+	location.href="/index/main"
 }
 
 </script>

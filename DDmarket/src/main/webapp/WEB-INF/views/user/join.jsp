@@ -117,15 +117,12 @@ if (${joinErrMsg != null}) {
 $('#idClick').hide();
 $('#emailClick').hide();
 $('#nickClick').hide();
-
-
 $('#sample4_jibunAddress').hide();
 $('#sample4_roadAddress').hide();
 
 $('#sample4_postcode').click(function() {
 	frm.addrUnChk.value = 'chk'
 })
-
 
 $('#emailChk').click(function() {
 	frm.emailUnChk.value = 'chk'
@@ -238,7 +235,7 @@ function chk() {
 		return false;
 	}
 	
-	// 이메일 정규화 (추후 select 로 업데이트 하기)(daum, naver, google 등등)
+	// 이메일 정규화 
 	if (frm.email.value.length > 0) {
 		const email = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
 		if(!email.test(frm.email.value)) {
@@ -372,7 +369,7 @@ function chkId() {
 	})
 }
 
-
+// 닉네임 중복확인
 function chkNick() {
 	const nick = frm.nick.value
 	axios.post('/user/ajaxNickChk', {
