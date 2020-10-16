@@ -12,7 +12,7 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body>
-<div id="container">
+	<div id="container">
         <main>
             <div class="div-logo">
                 <a href="/index/main"><img src="/res/img/logo.jpg" alt=""></a>
@@ -411,6 +411,7 @@ function chkNick() {
 	})
 }
 
+// 주소검색 api 
 function sample4_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {

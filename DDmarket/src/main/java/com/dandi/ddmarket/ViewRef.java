@@ -16,6 +16,7 @@ public class ViewRef {
 	public static final String USER_CHANGEPW = "user/changePw";	// 비밀번호 변경
 	public static final String USER_FINDID = "user/findId";		// 아이디 찾기
 	public static final String USER_MYPAGE = "user/myPage";		// 마이페이지
+	public static final String USER_INFO = "user/info"; 		// 개인정보 변경 
 	
 	
 	// index 

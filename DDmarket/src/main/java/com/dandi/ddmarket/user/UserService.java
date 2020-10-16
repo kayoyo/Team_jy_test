@@ -18,7 +18,6 @@ public class UserService {
 	private UserMapper mapper;
 
 	// 이메일 체크
-	// 코드 좀 거지같음 수정하기
 	public int emailChk(UserPARAM param, HttpSession hs) {
 		
 		UserDMI dbUser = mapper.emailChk(param);
@@ -48,7 +47,28 @@ public class UserService {
 		
 		return 0;
 	}
+	
+	// 회원 전체목록
+	public UserDMI selUser(UserPARAM param) {
 		
+		UserDMI dbUser = mapper.selUser(param);
+		
+		param.setI_user(dbUser.getI_user());
+		param.setUser_pw(null);
+		param.setNm(dbUser.getNm());
+		param.setNick(dbUser.getNick());
+		param.setEmail(dbUser.getEmail());
+		param.setProfile_img(dbUser.getProfile_img());		
+		param.setAddr(dbUser.getAddr());
+		param.setPost(dbUser.getPost());
+		param.setRoad(dbUser.getRoad());
+		param.setJoinPass(dbUser.getJoinPass());
+		param.setR_dt(dbUser.getR_dt());
+		param.setM_dt(dbUser.getM_dt());
+		
+		return dbUser;
+	}
+	
 	// SUCCESS 1:로그인 성공,  NO_ID 2:아이디 없음,  NO_PW 3:비번 틀림
 	public int login(UserPARAM param) {
 		if(param.getUser_id().equals("")) {
@@ -136,4 +156,24 @@ public class UserService {
 			return Const.SUCCESS;
 		}		 
 	}
+	
+	
+	// 닉네임 변경
+	public int changeNick(UserPARAM param) {
+		int result = mapper.changeNick(param);
+		return result;
+	}
+	
+	// 주소 변경
+	public int changeAddr(UserPARAM param) {
+		int result = mapper.changeAddr(param);
+		return result;
+	}
+	
+	// 이메일 변경
+	public int changeEmail(UserPARAM param) {
+		int result = mapper.changeEmail(param);
+		return result;
+	}
+	
 }

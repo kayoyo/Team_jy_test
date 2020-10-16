@@ -1,6 +1,7 @@
 package com.dandi.ddmarket.user.model;
 
 public class UserVO {
+	// 회원가입시 등록되는 VO
 	private int i_user;
 	private String user_id;
 	private String user_pw;
@@ -13,8 +14,8 @@ public class UserVO {
 	private String road;
 	private String joinPass;
 	private String uNum;
-	 
-	
+
+	// 추가적으로 등록되는 VO
 	private String favI_cg_1;  // 관심카테고리 
 	private String favI_cg_2;
 	private String favI_cg_3;
@@ -22,6 +23,7 @@ public class UserVO {
 	private String profile_img;
 	private String r_dt;
 	private String m_dt;
+	
 	public int getI_user() {
 		return i_user;
 	}

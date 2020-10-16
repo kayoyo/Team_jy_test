@@ -22,7 +22,6 @@ import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
 
 
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -69,7 +68,7 @@ public class UserController {
 		return String.valueOf(result);
 	}
 	
-	// 로그아웃
+	// 로그아웃 (logout)
 	@RequestMapping("/logout")
 	public String logout(Model model, HttpSession hs, RedirectAttributes ra, HttpServletRequest request) {
 		
@@ -79,7 +78,7 @@ public class UserController {
 	}
 	
 	
-	//	로그인
+	//	로그인 (login)
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model, HttpServletRequest request) {
 		// 로그인이 되어있다면 로그인페이지로 갈수없게 막아놓음 
@@ -118,7 +117,7 @@ public class UserController {
 	}
 	
 		
-	//	회원가입
+	//	회원가입 (join)
 	@RequestMapping(value="/join", method = RequestMethod.GET)
 	public String join(Model model, RedirectAttributes ra) {
 		int uNumCode = (int)(Math.random() * 88888888 + 10000000); // 고유번호 8자리 랜덤으로 지정
@@ -143,7 +142,7 @@ public class UserController {
 	}
 	
 	
-	//	비밀번호 찾기1-1 (아이디, 이메일 검사)
+	//	비밀번호 찾기1-1 (아이디, 이메일 검사) (findPw)
 	@RequestMapping(value="/findPw", method = RequestMethod.GET)
 	public String findPw(Model model, HttpServletRequest request) {
 		model.addAttribute("view",ViewRef.USER_FINDPW);		
@@ -181,7 +180,7 @@ public class UserController {
 	}
 	
 	
-	// 비번찾기 1-2 (이메일 인증코드 입력)
+	// 비번찾기 1-2 (이메일 인증코드 입력) (cerCode)
 	@RequestMapping(value="/cerCode", method=RequestMethod.GET)
 	public String modal(Model model, UserPARAM param, EmailVO vo) {
 		cerCodeCount += 1; 
@@ -209,7 +208,7 @@ public class UserController {
 	}
 	
 	
-	// 비밀번호 변경
+	// 비밀번호 변경 (changePw)
 	@RequestMapping(value="/changePw", method = RequestMethod.GET)
 	public String changePw(Model model, UserPARAM param) {
 		model.addAttribute("view", "/user/changePw");
@@ -239,7 +238,7 @@ public class UserController {
 	}
 	
 	
-	// 아이디 찾기
+	// 아이디 찾기 (findId)
 	@RequestMapping(value="findId", method = RequestMethod.GET)
 	public String findId(Model model) {
 		model.addAttribute("view",ViewRef.USER_FINDID);
@@ -266,11 +265,86 @@ public class UserController {
 	}
 	
 	
-	// 마이페이지
+	// 마이페이지 (myPage)
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String myPage(Model model) {
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return "redirect:/" + ViewRef.MENU_TEMP;
 	}
+	
+	@RequestMapping(value="/myPage", method = RequestMethod.POST)
+	public String myPage(Model model, UserPARAM param) {
+		model.addAttribute("view",ViewRef.USER_MYPAGE);
+		return "redirect:/" + ViewRef.MENU_TEMP;
+	}
+	
+	
+	// 개인정보변경 (info)
+	@RequestMapping(value="/info", method = RequestMethod.GET)
+	public String info(Model model, UserPARAM param, HttpSession hs) {
+		
+		try {
+			int i_user = SecurityUtils.getLoginUserPk(hs);
+			param.setI_user(i_user);
+			
+			model.addAttribute("infoMsg");
+			model.addAttribute("data",service.selUser(param));
+			model.addAttribute("view", ViewRef.USER_INFO);			
+			return ViewRef.MENU_TEMP;
+			
+		} catch (Exception e) {
+			model.addAttribute("loginMsg", "로그인을 해주세요");
+			return ViewRef.ORIGIN_TEMP;
+		}
+	}
+	
+	@RequestMapping(value="/info", method = RequestMethod.POST)
+	public String info(Model model, UserPARAM param, HttpServletRequest request,
+			HttpSession hs, RedirectAttributes ra) {
+		
+		int i_user = SecurityUtils.getLoginUserPk(hs); // 유저pk값을 받아와 mapper에서 그 where절에 pk값을 넣음
+		param.setI_user(i_user);
+		
+		int result = Integer.parseInt(request.getParameter("result"));
+				
+		/*
+		 *	1 사진변경	 2 사진삭제  3 비번변경  4 닉넴변경  5 주소변경  6 이메일 변경  7 관심사 변경  
+		 */
+		
+		//String infoMsg = "";	// ( )가 변경되었습니다  띄울 alert값
+		if(result == 1) {
+			System.out.println("1번 사진변경");
+			
+			
+		} else if (result == 2) {
+			System.out.println("2번 사진삭제");
+			
+			
+		} else if (result == 3) { 
+			System.out.println("3번 비밀번호 변경");			 
+			int chk = service.changePw(param);
+			
+					
+		} else if (result == 4) {
+			System.out.println("4번 닉네임변경");
+			int chk = service.changeNick(param);
+			
+			
+		} else if (result == 5) {
+			System.out.println("5번 주소변경");
+			int chk = service.changeAddr(param);
+						
+		} else if (result == 6) {
+			System.out.println("6번 이메일 변경");
+			int chk = service.changeEmail(param);
+			
+		} else {
+			System.out.println("7번 관심사 변경");
+		}
+		
+		return "redirect:/" + ViewRef.USER_INFO;
+	}
+	
+	
 	
 }

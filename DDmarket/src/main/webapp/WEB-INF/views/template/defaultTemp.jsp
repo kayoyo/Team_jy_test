@@ -59,7 +59,10 @@
 				</c:when>
 				<c:when test="${loginUser != null }">
 					<span class="header-user-text">
-						<a href="/user/logout">로그아웃</a> | <a href="#">단디톡</a>
+						<c:if test="${loginUser.profile_img == null }">
+							<img class="index_profileImg_size" src="/res/img/default.jpg">
+						</c:if>
+						<a href="/user/logout">로그아웃</a> | <a href="#">단디톡</a>						
 					</span>
 				</c:when>
 			</c:choose>

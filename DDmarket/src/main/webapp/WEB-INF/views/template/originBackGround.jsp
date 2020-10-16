@@ -37,10 +37,16 @@ if(${logoutMsg != null}) {
 	location.href="/index/main";
 }
 
-//로그인상태에서 url검색으로 로그인창 갔을시
+// 로그인상태에서 url검색으로 로그인창 갔을시
 if(${isLogin != null}) {
 	alert('${isLogin}');
 	location.href="/index/main"
+}
+
+// 로그아웃 상태에서 info 페이지 넘어갈경우 
+if(${loginMsg != null}) {
+	alert('${loginMsg}');
+	location.href="/user/login";
 }
 
 </script>
