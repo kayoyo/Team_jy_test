@@ -28,11 +28,11 @@
             <section class="pro_Img">
                 <form id="imgFrm" action="/user/info" method="post" enctype="multipart/form-data" onsubmit="return imgChk()">
                     <div class="pImg">
-                        <img src="/res/img/kakaoCon.jpg" alt="">
+                         <img src="/res/img/profile_img/user/${loginUser.i_user }/${data.profile_img}">
                     </div>
                     <div class="imgBtn">
                     	<input type="hidden" name="result" value="1">
-                        <input type="file" name="profile_img" value="사진등록"><br>
+                        <input type="file" name="user_profile_img" value="사진등록"><br>
                         <button type="submit">사진변경</button>
                     </div>
                 </form>

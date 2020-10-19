@@ -5,7 +5,6 @@ public class Const {
 	public static String realPath = null;
 	public static final String LOGIN_USER = "loginUser"; // 로그인한 유저의 세션 key값
 	
-	
 	// service.login() 부분 (참고 UserService.java)
 	public static final int FAIL = 0;		// 실패
 	public static final int SUCCESS = 1;	// 로그인성공 

@@ -34,6 +34,7 @@ public interface UserMapper {
 	
 	int changeEmail(UserPARAM param); // 이메일 변경
 		
+	int insProfile_img(UserVO vo); // 프로필사진 등록
 		
 	// delete 
 }

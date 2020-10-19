@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dandi.ddmarket.Const;
@@ -283,14 +284,15 @@ public class UserController {
 	// 개인정보변경 (info)
 	@RequestMapping(value="/info", method = RequestMethod.GET)
 	public String info(Model model, UserPARAM param, HttpSession hs) {
-		
+		 
 		try {
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 			
 			model.addAttribute("infoMsg");
 			model.addAttribute("data",service.selUser(param));
-			model.addAttribute("view", ViewRef.USER_INFO);			
+			model.addAttribute("view", ViewRef.USER_INFO);
+			
 			return ViewRef.MENU_TEMP;
 			
 		} catch (Exception e) {
@@ -300,8 +302,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/info", method = RequestMethod.POST)
-	public String info(Model model, UserPARAM param, HttpServletRequest request,
-			HttpSession hs, RedirectAttributes ra) {
+	public String info(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
+			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(hs); // 유저pk값을 받아와 mapper에서 그 where절에 pk값을 넣음
 		param.setI_user(i_user);
@@ -312,10 +314,12 @@ public class UserController {
 		 *	1 사진변경	 2 사진삭제  3 비번변경  4 닉넴변경  5 주소변경  6 이메일 변경  7 관심사 변경  
 		 */
 		
+		
 		//String infoMsg = "";	// ( )가 변경되었습니다  띄울 alert값
 		if(result == 1) {
-			System.out.println("1번 사진변경");
-			
+			System.out.println("1번 사진변 경");
+			System.out.println("멀티파트쳌 : " + mReq);
+			service.insUserProfileImg(mReq, vo);
 			
 		} else if (result == 2) {
 			System.out.println("2번 사진삭제");
@@ -347,5 +351,4 @@ public class UserController {
 		
 		return "redirect:/" + ViewRef.USER_INFO;
 	}
-	
 }

@@ -1,11 +1,17 @@
 package com.dandi.ddmarket.user;
 
+import java.io.File;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.dandi.ddmarket.Const;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.dandi.ddmarket.Const;
+import com.dandi.ddmarket.FileUtils;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -155,6 +161,39 @@ public class UserService {
 			hs.setAttribute("user_id", dbUser.getUser_id());
 			return Const.SUCCESS;
 		}		 
+	}
+	
+	
+	public int insUserProfileImg(MultipartHttpServletRequest mReq, UserVO vo) {
+		int i_user = SecurityUtils.getLoginUserPk(mReq.getSession());
+		
+		MultipartFile fileList = mReq.getFile("user_profile_img");
+		
+		String path = mReq.getServletContext().getRealPath("") +  "resources/img/profile_img/user/" + i_user + "/";
+		
+		File dir = new File(path);		
+		if(!dir.exists()) {  
+			dir.mkdirs(); 
+		}
+		
+		System.out.println("주소@@@@@ : " + path);
+		
+		String originFileNm = fileList.getOriginalFilename();
+		String ext = FileUtils.getExt(originFileNm);
+		String saveFileNm = UUID.randomUUID() + ext;
+		
+		
+		vo.setProfile_img(saveFileNm);
+		vo.setI_user(i_user);
+		
+		
+		try {
+			fileList.transferTo(new File(path + saveFileNm));
+			vo.setProfile_img(saveFileNm);				
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mapper.insProfile_img(vo);
 	}
 	
 	

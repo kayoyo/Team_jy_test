@@ -84,6 +84,13 @@
 		WHERE i_user = #{i_user}
 	</update>
 	
+	
+	<update id="insProfile_img" parameterType="UserVO">
+		UPDATE t_user
+		SET profile_img = #{profile_img}
+		WHERE i_user = #{i_user}
+	</update>
+	
 						<!-- delete -->
 	
 		
