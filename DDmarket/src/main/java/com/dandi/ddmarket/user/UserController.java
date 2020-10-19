@@ -37,6 +37,7 @@ public class UserController {
 	 *  	아작스에 hs 세션 값 확인해보고 불필요하면 지우기
 	 */
 	
+	
 	// 아이디 중복체크 (aJax) 
 	@RequestMapping(value="/ajaxIdChk", method=RequestMethod.POST)
 	@ResponseBody	
@@ -334,9 +335,11 @@ public class UserController {
 			System.out.println("5번 주소변경");
 			int chk = service.changeAddr(param);
 						
+			
 		} else if (result == 6) {
-			System.out.println("6번 이메일 변경");
+			System.out.println("6번 이메일 변경");			
 			int chk = service.changeEmail(param);
+			
 			
 		} else {
 			System.out.println("7번 관심사 변경");
@@ -344,7 +347,5 @@ public class UserController {
 		
 		return "redirect:/" + ViewRef.USER_INFO;
 	}
-	
-	
 	
 }

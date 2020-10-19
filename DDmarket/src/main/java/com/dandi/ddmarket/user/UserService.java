@@ -4,8 +4,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.dandi.ddmarket.Const;
+
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
@@ -16,7 +16,7 @@ public class UserService {
 
 	@Autowired
 	private UserMapper mapper;
-
+	
 	// 이메일 체크
 	public int emailChk(UserPARAM param, HttpSession hs) {
 		
@@ -156,6 +156,8 @@ public class UserService {
 			return Const.SUCCESS;
 		}		 
 	}
+	
+	
 	
 	
 	// 닉네임 변경

@@ -26,16 +26,14 @@
             <h2 class="title">프로필 사진 변경</h2>
             <span class="line"></span>
             <section class="pro_Img">
-                <form id="imgFrm" action="/user/info" method="post" onsubmit="return imgChk()">
+                <form id="imgFrm" action="/user/info" method="post" enctype="multipart/form-data" onsubmit="return imgChk()">
                     <div class="pImg">
                         <img src="/res/img/kakaoCon.jpg" alt="">
                     </div>
                     <div class="imgBtn">
-                        <button type="button">사진변경</button>
-                        <input type="hidden" name="result" value="1">
-                        <!-- input hidden 으로 보낼지 어떻게할지 나중에 작업다하고 확인해보기 -->
-                        <button type="button">사진삭제</button>
-                        <input type="hidden" name="result" value="2">                        
+                    	<input type="hidden" name="result" value="1">
+                        <input type="file" name="profile_img" value="사진등록"><br>
+                        <button type="submit">사진변경</button>
                     </div>
                 </form>
             </section>
@@ -55,11 +53,11 @@
             <span class="line"></span>
             <section class="user-nick">
                 <form id="nickFrm" action="/user/info" method="post" onsubmit="return nickChk()">
-                    <input type="text" name="nick" id="" value="${data.nick}" placeholder="닉네임">
+                    <input type="text" name="nick" id="nick_input" value="${data.nick}" placeholder="닉네임">
                     <i id="nickClick" class="animate__rubberBand animate__animated fas fa-check" ></i>
                     <input type="hidden" name="result" value="4">                    
                     <button type="button" class="nickChk" onclick="chkNick()">중복체크</button>                    
-                    <input id="nickUnChk" name="nickUnChk" type="hidden" value="unChk">
+                    <input type="hidden" id="nickUnChk" name="nickUnChk" value="unChk">
                     <button class="fixBtn">변경</button>
                 </form>
             </section>
@@ -87,7 +85,7 @@
 		    <span class="line"></span>
 		    <section class="user-email">
 		    <form id="emailFrm" action="/user/info" method="post" onsubmit="return emailChk()">
-			    <input type="email" name="email" id="" placeholder="이메일">
+			    <input type="email" name="email" id="email_input" placeholder="이메일">
 			    <i id="emailClick" class="animate__rubberBand animate__animated fas fa-check"></i>
 			    <input id="emailUnChk" name="emailUnChk" type="hidden" value="unChk">
 			    <button type="button" class="emailChk" onclick="chkEmail()">중복체크</button>			    			    
@@ -135,7 +133,20 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	
+
+// 닉네임, 이메일 칸에 입력이 들어올시 체크 아이콘은 숨기고, 다시 체크하도록 유도
+$('#nick_input').keydown(function() {
+	$('#nickClick').hide();
+	nickFrm.nickUnChk.value = 'unChk'
+})
+
+$('#email_input').keydown(function() {
+	$('#emailClick').hide();
+	emailFrm.emailUnChk.value = 'unChk'
+})
+//
+
+
 $('.nickChk').click(function() {
 	nickFrm.nickUnChk.value = 'chk'
 })
@@ -406,6 +417,5 @@ $('.emailChk').click(function() {
 	    }).open();
 	}	
 	
-
 </script>
 </html>
