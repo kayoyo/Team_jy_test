@@ -133,6 +133,10 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 
+if(${imgErr != null}) {
+	alert('${imgErr}')
+}
+
 // 닉네임, 이메일 칸에 입력이 들어올시 체크 아이콘은 숨기고, 다시 체크하도록 유도
 $('#nick_input').keydown(function() {
 	$('#nickClick').hide();
@@ -164,6 +168,17 @@ $('.emailChk').click(function() {
 	emailFrm.emailUnChk.value = 'chk'
 })
 
+	
+	// 프로필 이미지 체크
+	function imgChk() {
+		if(imgFrm.user_profile_img.value.length == 0 ||
+				imgFrm.user_profile_img.value == null ||
+				imgFrm.user_profile_img.value == '') {
+			alert('사진을 등록해주세요')
+			return false;
+		}
+	}
+	
 	
 	// 비밀번호 체크
 	function pwChk() {

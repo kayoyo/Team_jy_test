@@ -289,7 +289,7 @@ public class UserController {
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 			
-			model.addAttribute("infoMsg");
+			model.addAttribute("imgErr");
 			model.addAttribute("data",service.selUser(param));
 			model.addAttribute("view", ViewRef.USER_INFO);
 			
@@ -305,21 +305,30 @@ public class UserController {
 	@RequestMapping(value="/imgUpload", method = RequestMethod.POST)
 	public String imgUpload(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
 			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
-		int i_user = SecurityUtils.getLoginUserPk(hs); 
-		param.setI_user(i_user);
-						
-		System.out.println("1번 사진변 경");
-		System.out.println("멀티파트쳌 : " + mReq);
-		String dbUser = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
 		
-		System.out.println(dbUser);
-		vo.setProfile_img(dbUser);
+		try {
+			int i_user = SecurityUtils.getLoginUserPk(hs); 
+			param.setI_user(i_user);
+							
+			System.out.println("1번 사진변 경");
+			System.out.println("멀티파트쳌 : " + mReq);
+			String dbUser = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
+			
+			System.out.println(dbUser);
+			vo.setProfile_img(dbUser);
+			
+			String fileNm = service.insUserProfileImg(mReq, vo);
+			UserPARAM param2 = ((UserPARAM)hs.getAttribute(Const.LOGIN_USER));
+			param2.setProfile_img(fileNm);
+			hs.removeAttribute(Const.LOGIN_USER);
+			hs.setAttribute(Const.LOGIN_USER, param2);
+			
+		} catch(Exception e) {
+			
+			ra.addFlashAttribute("imgErr","프로필사진을 새로 등록해 주세요");
+			return "redirect:/" +  ViewRef.USER_INFO;
+		}
 		
-		String fileNm = service.insUserProfileImg(mReq, vo);
-		UserPARAM param2 = ((UserPARAM)hs.getAttribute(Const.LOGIN_USER));
-		param2.setProfile_img(fileNm);
-		hs.removeAttribute(Const.LOGIN_USER);
-		hs.setAttribute(Const.LOGIN_USER, param2);
 		
 		return "redirect:/" + ViewRef.USER_INFO;
 	}
@@ -355,6 +364,7 @@ public class UserController {
 			
 		} else {
 			System.out.println("7번 관심사 변경");
+			
 		}
 		
 		return "redirect:/" + ViewRef.USER_INFO;
