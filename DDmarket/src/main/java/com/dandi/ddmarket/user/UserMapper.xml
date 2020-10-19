@@ -13,7 +13,7 @@
 		WHERE <if test="i_user > 0"> i_user = #{i_user}</if>
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id}</if>
 	</select>
-
+	
 	<!-- 비밀번호 찾기 -->
 	<select id="findPwChk" parameterType="UserPARAM" resultType="UserDMI">
 		SELECT i_user, user_id, user_pw, salt, email FROM t_user
@@ -91,11 +91,11 @@
 		WHERE i_user = #{i_user}
 	</update>
 	
+	
+	
 						<!-- delete -->
 	
 		
-	
-	
 	
 	
 </mapper>

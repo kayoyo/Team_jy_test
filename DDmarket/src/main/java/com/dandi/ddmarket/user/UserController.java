@@ -307,7 +307,7 @@ public class UserController {
 		
 		int i_user = SecurityUtils.getLoginUserPk(hs); // 유저pk값을 받아와 mapper에서 그 where절에 pk값을 넣음
 		param.setI_user(i_user);
-		
+				
 		int result = Integer.parseInt(request.getParameter("result"));
 				
 		/*
@@ -319,7 +319,17 @@ public class UserController {
 		if(result == 1) {
 			System.out.println("1번 사진변 경");
 			System.out.println("멀티파트쳌 : " + mReq);
-			service.insUserProfileImg(mReq, vo);
+			String dbUser = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
+			
+			System.out.println(dbUser);
+			vo.setProfile_img(dbUser);
+			
+			String fileNm = service.insUserProfileImg(mReq, vo);
+			UserPARAM param2 = ((UserPARAM)hs.getAttribute(Const.LOGIN_USER));
+			param2.setProfile_img(fileNm);
+			hs.removeAttribute(Const.LOGIN_USER);
+			hs.setAttribute(Const.LOGIN_USER, param2);
+			
 			
 		} else if (result == 2) {
 			System.out.println("2번 사진삭제");

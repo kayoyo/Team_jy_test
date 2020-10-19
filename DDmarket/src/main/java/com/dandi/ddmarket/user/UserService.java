@@ -164,18 +164,29 @@ public class UserService {
 	}
 	
 	
-	public int insUserProfileImg(MultipartHttpServletRequest mReq, UserVO vo) {
+	public String insUserProfileImg(MultipartHttpServletRequest mReq, UserVO vo) {
+		
 		int i_user = SecurityUtils.getLoginUserPk(mReq.getSession());
 		
-		MultipartFile fileList = mReq.getFile("user_profile_img");
-		
 		String path = mReq.getServletContext().getRealPath("") +  "resources/img/profile_img/user/" + i_user + "/";
+		
+		File file = new File(path + vo.getProfile_img());
+		
+		System.out.println("파일경로 : " + file);
+		
+		if(file.exists()) {
+			file.delete();	
+		} 
+		
+		MultipartFile fileList = mReq.getFile("user_profile_img");
 		
 		File dir = new File(path);		
 		if(!dir.exists()) {  
 			dir.mkdirs(); 
 		}
 		
+		// String oldFile = path;		
+				
 		System.out.println("주소@@@@@ : " + path);
 		
 		String originFileNm = fileList.getOriginalFilename();
@@ -185,15 +196,19 @@ public class UserService {
 		
 		vo.setProfile_img(saveFileNm);
 		vo.setI_user(i_user);
-		
-		
+				
 		try {
 			fileList.transferTo(new File(path + saveFileNm));
-			vo.setProfile_img(saveFileNm);				
+			vo.setProfile_img(saveFileNm);
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		return mapper.insProfile_img(vo);
+		
+		mapper.insProfile_img(vo);
+		
+		return saveFileNm;
+		
 	}
 	
 	
