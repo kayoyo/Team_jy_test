@@ -168,7 +168,6 @@ $('.emailChk').click(function() {
 	emailFrm.emailUnChk.value = 'chk'
 })
 
-	
 	// 프로필 이미지 체크
 	function imgChk() {
 		if(imgFrm.user_profile_img.value.length == 0 ||

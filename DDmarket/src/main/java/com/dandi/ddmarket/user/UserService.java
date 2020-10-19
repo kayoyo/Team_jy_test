@@ -54,7 +54,7 @@ public class UserService {
 		return 0;
 	}
 	
-	// 회원 전체목록
+	// 회원 전체목록 ( 나중에 불필요하면 삭제하기 ) ★★ 
 	public UserDMI selUser(UserPARAM param) {
 		
 		UserDMI dbUser = mapper.selUser(param);
@@ -192,8 +192,7 @@ public class UserService {
 		String originFileNm = fileList.getOriginalFilename();
 		String ext = FileUtils.getExt(originFileNm);
 		String saveFileNm = UUID.randomUUID() + ext;
-		
-		
+				
 		vo.setProfile_img(saveFileNm);
 		vo.setI_user(i_user);
 				

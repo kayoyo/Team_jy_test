@@ -330,6 +330,7 @@ public class UserController {
 		return "redirect:/" + ViewRef.USER_INFO;
 	}
 	
+	// 사진 외 개인정보 수정
 	@RequestMapping(value="/info", method = RequestMethod.POST)
 	public String info(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
 			HttpSession hs, RedirectAttributes ra) {
