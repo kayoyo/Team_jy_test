@@ -63,16 +63,16 @@
                 <span class="line"></span>
                 <div class="div-input">
                     <div>
-                        <input type="text" name="user_id" placeholder="아이디">
+                        <input type="text" name="user_id" id="id_input" placeholder="아이디">
                         <button type="button" id="idChk" onclick="chkId()">아이디 중복체크</button>
-                        <input id="idUnChk" name="idUnChk" type="hidden" value="unChk">
+                        <input type="hidden" id="idUnChk" name="idUnChk" value="unChk">
                         <i id="idClick" class="animate__rubberBand animate__animated fas fa-check" ></i>                        
                     </div>
                     <div><input type="password" name="user_pw" placeholder="비밀번호"></div>
                     <div><input type="password" name="user_rpw" placeholder="비밀번호 확인"></div>
                     <div><input type="text" name="nm" placeholder="이름"></div>
                     <div>
-                        <input type="text" name="nick" placeholder="닉네임">
+                        <input type="text" name="nick" id="nick_input" placeholder="닉네임">
                         <button type="button" id="nickChk" onclick="chkNick()">닉네임 중복체크</button>
                         <i id="nickClick" class="animate__rubberBand animate__animated fas fa-check" ></i>
                         <input id="nickUnChk" name="nickUnChk" type="hidden" value="unChk">
@@ -135,6 +135,22 @@ $('#idChk').click(function() {
 $('#nickChk').click(function() {
 	frm.nickUnChk.value = 'chk'
 })
+
+$('#nick_input').keydown(function() {
+	$('#nickClick').hide();
+	frm.nickUnChk.value = 'unChk'
+})
+
+$('#email_txt').keydown(function() {
+	$('#emailClick').hide();
+	frm.emailUnChk.value = 'unChk'
+})
+
+$('#id_input').keydown(function() {
+	$('#idClick').hide();
+	frm.idUnChk.value = 'unChk'
+})
+//
 
 
 function chk() {	

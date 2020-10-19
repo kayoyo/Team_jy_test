@@ -40,7 +40,7 @@
 	
 	
 
-						<!-- insert -->
+							<!-- insert -->
 						 
 	<!-- 회원가입 -->
 	<insert id="joinUser" parameterType="UserVO">
@@ -50,7 +50,7 @@
 		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email}, #{post}, #{addr}, #{road}, #{joinPass})
 	</insert>		
 						
-						<!-- update -->
+							<!-- update -->
 				
 		
 	<!-- 비밀번호 변경 -->							
@@ -93,7 +93,7 @@
 	
 	
 	
-						<!-- delete -->
+							<!-- delete -->
 	
 		
 	

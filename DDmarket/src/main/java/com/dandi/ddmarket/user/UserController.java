@@ -137,7 +137,7 @@ public class UserController {
 			return "redirect:/" + ViewRef.USER_LOGIN;
 
 		} else { 
-			ra.addFlashAttribute("joinErrMsg","서버에러! 다시 회원가입을 시도해 주세요");
+			ra.addFlashAttribute("joinErrMsg","서버에러! 회원가입을 다시 시도해 주세요");
 			return "redirect:/" + ViewRef.USER_JOIN;
 		}
 	}
@@ -186,7 +186,7 @@ public class UserController {
 	public String modal(Model model, UserPARAM param, EmailVO vo) {
 		cerCodeCount += 1; 
 		
-		model.addAttribute("view","/user/cerCode");
+		model.addAttribute("view",ViewRef.USER_CERCODE);
 		model.addAttribute("cerCodeCount");
 		return ViewRef.ORIGIN_TEMP;
 	}	
@@ -312,7 +312,7 @@ public class UserController {
 			System.out.println("멀티파트쳌 : " + mReq);
 			String dbUser = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
 			
-			System.out.println(dbUser);
+			System.out.println("dbUser : " + dbUser);
 			vo.setProfile_img(dbUser);
 			
 			String fileNm = service.insUserProfileImg(mReq, vo);

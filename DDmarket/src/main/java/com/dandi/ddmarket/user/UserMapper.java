@@ -20,20 +20,21 @@ public interface UserMapper {
 	UserDMI nickChk(UserPARAM param);	// 닉네임 중복체크
 	
 	
-	// isnert
+	// insert
 	int joinUser(UserVO param);		// 회원가입
 	
 	
+	
 	// update 
-	int changePw(UserPARAM param);   // 비밀번호 변경
+	int changePw(UserPARAM param);    // 비밀번호 변경
 	
-	int changeNick(UserPARAM param); // 닉네임 변경 
+	int changeNick(UserPARAM param);  // 닉네임 변경 
 	
-	int changeAddr(UserPARAM param); // 주소 변경
+	int changeAddr(UserPARAM param);  // 주소 변경
 	
 	int changeEmail(UserPARAM param); // 이메일 변경
 		
-	int insProfile_img(UserVO vo); // 프로필사진 등록
+	int insProfile_img(UserVO vo); 	  // 프로필사진 등록
 	
 		
 	// delete 

@@ -39,6 +39,7 @@ public class UserService {
 		return 0;
 	}
 	
+	// 닉네임 체크
 	public int nickChk(UserPARAM param) {
 				
 		UserDMI dbUser = mapper.nickChk(param);
@@ -55,6 +56,7 @@ public class UserService {
 	}
 	
 	// 회원 전체목록 ( 나중에 불필요하면 삭제하기 ) ★★ 
+	// 일단 login xml 과 조금 다름 (검토하기)
 	public UserDMI selUser(UserPARAM param) {
 		
 		UserDMI dbUser = mapper.selUser(param);
@@ -187,7 +189,7 @@ public class UserService {
 		
 		// String oldFile = path;		
 				
-		System.out.println("주소@@@@@ : " + path);
+		System.out.println("사진저장주소  : " + path);
 		
 		String originFileNm = fileList.getOriginalFilename();
 		String ext = FileUtils.getExt(originFileNm);
@@ -210,6 +212,10 @@ public class UserService {
 		
 	}
 	
+	
+	/*
+	 *	나중에 시간날때 null 체크형식으로 다묶을수있으면 묶어서 처리하기 	
+	 */
 	
 	// 닉네임 변경
 	public int changeNick(UserPARAM param) {
