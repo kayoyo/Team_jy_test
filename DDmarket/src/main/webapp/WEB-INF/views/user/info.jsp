@@ -26,12 +26,11 @@
             <h2 class="title">프로필 사진 변경</h2>
             <span class="line"></span>
             <section class="pro_Img">
-                <form id="imgFrm" action="/user/info" method="post" enctype="multipart/form-data" onsubmit="return imgChk()">
+                <form id="imgFrm" action="/user/imgUpload" method="post" enctype="multipart/form-data" onsubmit="return imgChk()">
                     <div class="pImg">
                          <img src="/res/img/profile_img/user/${loginUser.i_user }/${data.profile_img}">
                     </div>
                     <div class="imgBtn">
-                    	<input type="hidden" name="result" value="1">
                         <input type="file" name="user_profile_img" value="사진등록"><br>
                         <button type="submit">사진변경</button>
                     </div>

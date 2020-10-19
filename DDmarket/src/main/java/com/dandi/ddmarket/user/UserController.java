@@ -301,9 +301,32 @@ public class UserController {
 		}
 	}
 	
+	// 프로필 사진 등록 / 수정
+	@RequestMapping(value="/imgUpload", method = RequestMethod.POST)
+	public String imgUpload(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
+			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
+		int i_user = SecurityUtils.getLoginUserPk(hs); 
+		param.setI_user(i_user);
+						
+		System.out.println("1번 사진변 경");
+		System.out.println("멀티파트쳌 : " + mReq);
+		String dbUser = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
+		
+		System.out.println(dbUser);
+		vo.setProfile_img(dbUser);
+		
+		String fileNm = service.insUserProfileImg(mReq, vo);
+		UserPARAM param2 = ((UserPARAM)hs.getAttribute(Const.LOGIN_USER));
+		param2.setProfile_img(fileNm);
+		hs.removeAttribute(Const.LOGIN_USER);
+		hs.setAttribute(Const.LOGIN_USER, param2);
+		
+		return "redirect:/" + ViewRef.USER_INFO;
+	}
+	
 	@RequestMapping(value="/info", method = RequestMethod.POST)
 	public String info(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
-			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
+			HttpSession hs, RedirectAttributes ra) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(hs); // 유저pk값을 받아와 mapper에서 그 where절에 pk값을 넣음
 		param.setI_user(i_user);
@@ -311,49 +334,24 @@ public class UserController {
 		int result = Integer.parseInt(request.getParameter("result"));
 				
 		/*
-		 *	1 사진변경	 2 사진삭제  3 비번변경  4 닉넴변경  5 주소변경  6 이메일 변경  7 관심사 변경  
+		 *	 3 비번변경  4 닉넴변경  5 주소변경  6 이메일 변경  7 관심사 변경  
 		 */
 		
-		
-		//String infoMsg = "";	// ( )가 변경되었습니다  띄울 alert값
-		if(result == 1) {
-			System.out.println("1번 사진변 경");
-			System.out.println("멀티파트쳌 : " + mReq);
-			String dbUser = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
-			
-			System.out.println(dbUser);
-			vo.setProfile_img(dbUser);
-			
-			String fileNm = service.insUserProfileImg(mReq, vo);
-			UserPARAM param2 = ((UserPARAM)hs.getAttribute(Const.LOGIN_USER));
-			param2.setProfile_img(fileNm);
-			hs.removeAttribute(Const.LOGIN_USER);
-			hs.setAttribute(Const.LOGIN_USER, param2);
-			
-			
-		} else if (result == 2) {
-			System.out.println("2번 사진삭제");
-			
-			
-		} else if (result == 3) { 
+		if (result == 3) { 
 			System.out.println("3번 비밀번호 변경");			 
 			int chk = service.changePw(param);
-			
 					
 		} else if (result == 4) {
 			System.out.println("4번 닉네임변경");
 			int chk = service.changeNick(param);
 			
-			
 		} else if (result == 5) {
 			System.out.println("5번 주소변경");
 			int chk = service.changeAddr(param);
-						
 			
 		} else if (result == 6) {
 			System.out.println("6번 이메일 변경");			
 			int chk = service.changeEmail(param);
-			
 			
 		} else {
 			System.out.println("7번 관심사 변경");
