@@ -131,6 +131,14 @@ public class UserController {
 
 	@RequestMapping(value="/join", method = RequestMethod.POST) 
 	public String join(Model model, UserVO param, HttpSession hs, RedirectAttributes ra) {
+		
+		
+		if(param.getProfile_img() == null) {
+			param.setProfile_img("default.jpg");
+		}
+		
+		System.out.println("파람 이미지 : " + param.getProfile_img());
+		
 		int result = service.joinUser(param);
 		
 		if(result == Const.SUCCESS) {
