@@ -36,8 +36,7 @@ public class UserController {
 		
 	/*
 	 *  	아작스에 hs 세션 값 확인해보고 불필요하면 지우기
-	 */
-	
+	 */	
 	
 	// 아이디 중복체크 (aJax) 
 	@RequestMapping(value="/ajaxIdChk", method=RequestMethod.POST)
@@ -309,8 +308,7 @@ public class UserController {
 		try {
 			int i_user = SecurityUtils.getLoginUserPk(hs); 
 			param.setI_user(i_user);
-							
-			System.out.println("1번 사진변 경");
+			
 			System.out.println("멀티파트쳌 : " + mReq);
 			String dbUser = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
 			
@@ -328,7 +326,6 @@ public class UserController {
 			ra.addFlashAttribute("imgErr","프로필사진을 새로 등록해 주세요");
 			return "redirect:/" +  ViewRef.USER_INFO;
 		}
-		
 		
 		return "redirect:/" + ViewRef.USER_INFO;
 	}

@@ -134,7 +134,7 @@
 <script>
 
 if(${imgErr != null}) {
-	alert('${imgErr}')
+	alert('${imgErr}');
 }
 
 // 닉네임, 이메일 칸에 입력이 들어올시 체크 아이콘은 숨기고, 다시 체크하도록 유도
@@ -178,7 +178,6 @@ $('.emailChk').click(function() {
 			return false;
 		}
 	}
-	
 	
 	// 비밀번호 체크
 	function pwChk() {

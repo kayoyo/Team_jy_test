@@ -212,8 +212,6 @@ public class UserService {
 	}
 	
 	
-	
-	
 	// 닉네임 변경
 	public int changeNick(UserPARAM param) {
 		int result = mapper.changeNick(param);
