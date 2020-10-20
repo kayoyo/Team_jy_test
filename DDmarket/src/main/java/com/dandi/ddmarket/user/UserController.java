@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
+import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.mail.MailSendService;
 import com.dandi.ddmarket.mail.model.EmailVO;
 import com.dandi.ddmarket.user.model.UserDMI;
@@ -82,10 +83,13 @@ public class UserController {
 	//	로그인 (login)
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(Model model, HttpServletRequest request) {
-		// 로그인이 되어있다면 로그인페이지로 갈수없게 막아놓음 
-		// 메소드 다시 만들기  // 또는 인터셉터에서 추후에 걸러주기
+		
+		/*
+		 * 	인터셉터로 걸러주니까 로그인 alert창 안띄워짐 login.get 메소드에 직접 url 걸러줌
+		 */
+		
 		UserVO param = SecurityUtils.getLoginUser(request);
-				
+		
 		if(param != null) {	
 			model.addAttribute("isLogin","로그인이 되어있는상태에서는 로그인페이지로 갈수없습니다");
 			return ViewRef.ORIGIN_TEMP;
@@ -131,7 +135,6 @@ public class UserController {
 
 	@RequestMapping(value="/join", method = RequestMethod.POST) 
 	public String join(Model model, UserVO param, HttpSession hs, RedirectAttributes ra) {
-		
 		
 		if(param.getProfile_img() == null) {
 			param.setProfile_img("default.jpg");
@@ -291,13 +294,14 @@ public class UserController {
 	// 개인정보변경 (info)
 	@RequestMapping(value="/info", method = RequestMethod.GET)
 	public String info(Model model, UserPARAM param, HttpSession hs) {
-		 
+		
 		try {
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 			
 			model.addAttribute("imgErr");
 			model.addAttribute("data",service.selUser(param));
+			model.addAttribute("categoryList", service.selCategory());
 			model.addAttribute("view", ViewRef.USER_INFO);
 			
 			return ViewRef.MENU_TEMP;
@@ -308,7 +312,7 @@ public class UserController {
 		}
 	}
 	
-	// 프로필 사진 등록 / 수정
+	// 프로필 사진 등록 / 수정  (mReq를 info.post에 넣으니 에러뜸)
 	@RequestMapping(value="/imgUpload", method = RequestMethod.POST)
 	public String imgUpload(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
 			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
@@ -330,7 +334,6 @@ public class UserController {
 			hs.setAttribute(Const.LOGIN_USER, param2);
 			
 		} catch(Exception e) {
-			
 			ra.addFlashAttribute("imgErr","프로필사진을 새로 등록해 주세요");
 			return "redirect:/" +  ViewRef.USER_INFO;
 		}
@@ -340,8 +343,8 @@ public class UserController {
 	
 	// 사진 외 개인정보 수정
 	@RequestMapping(value="/info", method = RequestMethod.POST)
-	public String info(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
-			HttpSession hs, RedirectAttributes ra) {
+	public String info(Model model, UserVO vo, UserPARAM param,
+			HttpServletRequest request,	HttpSession hs, RedirectAttributes ra) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(hs); // 유저pk값을 받아와 mapper에서 그 where절에 pk값을 넣음
 		param.setI_user(i_user);
@@ -370,7 +373,11 @@ public class UserController {
 			
 		} else {
 			System.out.println("7번 관심사 변경");
-			
+			String categoryList[] = request.getParameterValues("categoryLike");
+			param.setFavI_cg_1(categoryList[0]);
+			param.setFavI_cg_2(categoryList[1]);
+			param.setFavI_cg_3(categoryList[2]);
+			service.changeCategory(param);
 		}
 		
 		return "redirect:/" + ViewRef.USER_INFO;

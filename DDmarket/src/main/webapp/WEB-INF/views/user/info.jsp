@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
             <section class="pro_Img">
                 <form id="imgFrm" action="/user/imgUpload" method="post" enctype="multipart/form-data" onsubmit="return imgChk()">
                     <div class="pImg">
-                         <img src="/res/img/profile_img/user/${loginUser.i_user }/${data.profile_img}">
+                         <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}">
                     </div>
                     <div class="imgBtn">
                         <input type="file" name="user_profile_img" value="사진등록"><br>
@@ -52,7 +53,7 @@
             <span class="line"></span>
             <section class="user-nick">
                 <form id="nickFrm" action="/user/info" method="post" onsubmit="return nickChk()">
-                    <input type="text" name="nick" id="nick_input" value="${data.nick}" placeholder="닉네임">
+                    <input type="text" name="nick" id="nick_input" value="${loginUser.nick}" placeholder="닉네임">
                     <i id="nickClick" class="animate__rubberBand animate__animated fas fa-check" ></i>
                     <input type="hidden" name="result" value="4">                    
                     <button type="button" class="nickChk" onclick="chkNick()">중복체크</button>                    
@@ -84,7 +85,7 @@
 		    <span class="line"></span>
 		    <section class="user-email">
 		    <form id="emailFrm" action="/user/info" method="post" onsubmit="return emailChk()">
-			    <input type="email" name="email" id="email_input" placeholder="이메일">
+			    <input type="email" name="email" id="email_input" value="${loginUser.email }" placeholder="이메일">
 			    <i id="emailClick" class="animate__rubberBand animate__animated fas fa-check"></i>
 			    <input id="emailUnChk" name="emailUnChk" type="hidden" value="unChk">
 			    <button type="button" class="emailChk" onclick="chkEmail()">중복체크</button>			    			    
@@ -96,31 +97,39 @@
             <span class="line"></span>
             <section id="category">
                 <form id="likeFrm" action="/user/info" method="post">
-                    <div class="category-front">
-                        <input type="checkbox" name="" id="f-wear">
-                        <label for="f-wear">여성의류</label>
-                        <input type="checkbox" name="" id="m-wear">
-                        <label for="m-wear">남성의류</label>
-                        <input type="checkbox" name="" id="fashion">
-                        <label for="fashion">패션잡화</label>
-                        <input type="checkbox" name="" id="digital">
-                        <label for="digital">디지털 | 가전</label>
-                        <input type="checkbox" name="" id="buti">
-                        <label for="buti">뷰티 | 미용</label>
-                    </div>
-                    
-                    <div class="category-back">
-                        <input type="checkbox" name="" id="life">
-                        <label for="life">생활 | 가구</label>
-                        <input type="checkbox" name="" id="book">
-                        <label for="book">도서 | 티켓</label>
-                        <input type="checkbox" name="" id="child">
-                        <label for="child">유아용 | 출산</label>
-                        <input type="checkbox" name="" id="comp">
-                        <label for="comp">무료나눔</label>
-                        <input type="checkbox" name="" id="etc">
-                        <label for="etc">기타</label>
-                    </div>
+	                    <div class="category-front">
+	                    	<c:forEach items="${categoryList}" var="item">
+		                    	<input type="checkbox" name="categoryLike" id="f-wear" value="${item.i_cg }" onclick="count_ck(this);">
+		                        <label for="f-wear">${item.cg_nm }</label>
+	                        </c:forEach>
+	                    </div>
+	                        <!--  
+	                        <input type="checkbox" name="categoryLike" id="f-wear" value="1" onclick="count_ck(this);">
+	                        <label for="f-wear">여성의류</label>
+	                        <input type="checkbox" name="categoryLike" id="m-wear" value="2" onclick="count_ck(this);">
+	                        <label for="m-wear">남성의류</label>
+	                        <input type="checkbox" name="categoryLike" id="fashion" value="3" onclick="count_ck(this);">
+	                        <label for="fashion">패션잡화</label>
+	                        <input type="checkbox" name="categoryLike" id="digital" value="4" onclick="count_ck(this);">
+	                        <label for="digital">디지털 | 가전</label>
+	                        <input type="checkbox" name="categoryLike" id="buti" value="5" onclick="count_ck(this);">
+	                        <label for="buti">뷰티 | 미용</label>
+	                    
+	                    
+	                    <div class="category-back">
+	                        <input type="checkbox" name="categoryLike" id="life" value="6" onclick="count_ck(this);">
+	                        <label for="life">생활 | 가구</label>
+	                        <input type="checkbox" name="categoryLike" id="book" value="7" onclick="count_ck(this);">
+	                        <label for="book">도서 | 티켓</label>
+	                        <input type="checkbox" name="categoryLike" id="child" value="8" onclick="count_ck(this);">
+	                        <label for="child">유아용 | 출산</label>
+	                        <input type="checkbox" name="categoryLike" id="comp" value="9" onclick="count_ck(this);">
+	                        <label for="comp">무료나눔</label>
+	                        <input type="checkbox" name="categoryLike" id="etc" value="10" onclick="count_ck(this);">
+	                        <label for="etc">기타</label>
+	                    </div>
+	                    -->
+					                    	
                     <input type="hidden" name="result" value="7">
                     <button class="categoryChg">등록</button>
                 </form>
@@ -168,6 +177,7 @@ $('.emailChk').click(function() {
 	emailFrm.emailUnChk.value = 'chk'
 })
 
+	
 	// 프로필 이미지 체크
 	function imgChk() {
 		if(imgFrm.user_profile_img.value.length == 0 ||
@@ -278,7 +288,22 @@ $('.emailChk').click(function() {
 		}
 	}
 	
-	
+	// 관심사 체크, 최대갯수 3개제한 
+	function count_ck(obj){
+		var chkbox = document.getElementsByName("categoryLike");
+		var chkCnt = 0;
+		for(var i=0; i<chkbox.length; i++){
+			if(chkbox[i].checked){
+				chkCnt++;
+			}			
+		}
+
+		if(chkCnt > 3){
+			alert("관심사는 최대 3개까지 선택가능합니다");
+			obj.checked = false;
+			return false;
+		}
+	}
 	
 	// 닉네임 중복체크 (ajax)
 	function chkNick() {

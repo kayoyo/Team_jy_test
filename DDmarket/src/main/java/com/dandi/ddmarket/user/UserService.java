@@ -1,6 +1,8 @@
 package com.dandi.ddmarket.user;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.FileUtils;
 import com.dandi.ddmarket.SecurityUtils;
+import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
@@ -212,6 +215,13 @@ public class UserService {
 		
 	}
 	
+	// 카테고리 나타내기
+	public List<CategoryVO> selCategory() {		
+		List<CategoryVO> list = new ArrayList<CategoryVO>();  
+		list = mapper.selCategory();
+		  
+		return list;
+	}
 	
 	/*
 	 *	나중에 시간날때 null 체크형식으로 다묶을수있으면 묶어서 처리하기 	
@@ -232,6 +242,12 @@ public class UserService {
 	// 이메일 변경
 	public int changeEmail(UserPARAM param) {
 		int result = mapper.changeEmail(param);
+		return result;
+	}
+	
+	// 관심사 변경
+	public int changeCategory(UserPARAM param) {
+		int result = mapper.changeCategory(param);
 		return result;
 	}
 	

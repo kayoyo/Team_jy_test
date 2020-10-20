@@ -1,7 +1,10 @@
 package com.dandi.ddmarket.user;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
@@ -19,6 +22,8 @@ public interface UserMapper {
 	
 	UserDMI nickChk(UserPARAM param);	// 닉네임 중복체크
 	
+	List<CategoryVO> selCategory();		// 카테고리 리스트
+	
 	
 	// insert
 	int joinUser(UserVO param);		// 회원가입
@@ -35,6 +40,8 @@ public interface UserMapper {
 	int changeEmail(UserPARAM param); // 이메일 변경
 		
 	int insProfile_img(UserVO vo); 	  // 프로필사진 등록
+	
+	int changeCategory(UserPARAM param);
 	
 		
 	// delete 

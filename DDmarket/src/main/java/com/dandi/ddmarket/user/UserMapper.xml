@@ -38,6 +38,10 @@
 		WHERE nick = #{nick}
 	</select>
 	
+	<select id="selCategory" resultType="CategoryVO">
+		SELECT i_cg, cg_nm FROM t_category
+	</select>
+	
 	
 
 							<!-- insert -->
@@ -58,7 +62,7 @@
 		UPDATE t_user
 		SET user_pw = #{user_pw}
 		,salt = #{salt}
-		WHERE i_user = #{i_user}
+		WHERE i_user = #{i_user}		
 	</update>
 	
 	<!-- 닉네임 변경 -->
@@ -89,6 +93,13 @@
 		UPDATE t_user
 		SET profile_img = #{profile_img}
 		WHERE i_user = #{i_user}
+	</update>
+	
+	<update id="changeCategory" parameterType="UserPARAM">
+		UPDATE t_user
+		SET favI_cg_1 = #{favI_cg_1}
+		, favI_cg_2 = #{favI_cg_2}
+		, favI_cg_3 = #{favI_cg_3}
 	</update>
 	
 	
