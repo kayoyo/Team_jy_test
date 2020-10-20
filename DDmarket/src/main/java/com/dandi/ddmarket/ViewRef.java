@@ -3,8 +3,8 @@ package com.dandi.ddmarket;
 // 주소관련
 public class ViewRef {	
 	// template
-	public static final String DEFAULT_TEMP = "template/defaultTemp";	// Header, Footer 둘다있는 템플릿
-	public static final String MENU_TEMP = "template/menuTemp";  // Footer만 있는 템플릿
+	public static final String DEFAULT_TEMP = "template/defaultTemp";	// Header, Footer 둘다있는 템플릿 ( 인덱스 메인화면 용 )
+	public static final String MENU_TEMP = "template/menuTemp";  // Footer만 있는 템플릿 (로그인창, 아이디, 비번찾기 등 사용하는 템플릿)
 	public static final String ORIGIN_TEMP = "template/originBackGround"; // 기타 alert창띄우는용도 기본 뒷배경 템플릿
 	
 	

@@ -8,18 +8,31 @@
 <title>단디마켓</title>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link rel="stylesheet" type="text/css" href="/res/css/index/index.css">
+<link rel="stylesheet" type="text/css" href="/res/css/animate/animate.css">
 </head>
+<style>
+	
+	#test{
+		color: #fc6a6a;
+		font-size: 3.3em;
+	}
+</style>
 <body>
 	<main>
 		<section class="main-section-banner">
+												<!-- 삭제하고싶을떄 삭제하기 -->
+												<div><h1 id="test" class="animate__bounce animate__animated">DDMarket open!!</h1></div>
 			<!-- Slider main container -->
 			<div class="swiper-container">
 				<!-- Additional required wrapper -->
 				<div class="swiper-wrapper">
 					<!-- Slides -->
-					<div class="swiper-slide">
+					<div class="swiper-slide">						
 						<div class="banner-div_image">
-							<img src="/res/img/main_banner.jpg">
+							<!--  <img src="/res/img/main_banner.jpg"> -->
+													<!-- 삭제하고싶을떄 삭제하기 -->
+													<img src="/res/img/test.gif" class="animate__backInRight animate__animated" style="width: 1020px; height: 230px; border-radius: 120px;">
+							<hr>
 						</div>
 					</div>
 					<div class="swiper-slide">Slide 2</div>
@@ -222,7 +235,7 @@
 									</div>
 									<div class="card-desc">
 										<h2 class="card-title">카카오콘 인형</h2>
-										<span class="card-border"></span> <span class="card-price">100,000원</span>
+										<span class="card-border"></span> <span class="card-price">공짜!</span>
 										<span class="card-r_dt">5시간전</span>
 									</div>
 								</a>
@@ -248,7 +261,4 @@
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="/res/js/index/index.js"></script>
-<script>
-	
-</script>
 </html>

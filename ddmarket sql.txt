@@ -29,7 +29,7 @@ CREATE TABLE t_user(
 	r_dt DATETIME DEFAULT NOW(), -- 회원 가입시 등록되는 날짜
 	m_dt DATETIME DEFAULT NOW(), -- ""  수정시      ""
 	PRIMARY KEY (i_user)
-	ON DELETE CASECADE
+
 );
 
 SELECT * FROM t_user;
@@ -64,7 +64,7 @@ CREATE TABLE t_category_like(
 	r_dt DATETIME DEFAULT NOW(),	
 	m_dt DATETIME DEFAULT NOW(),
 	PRIMARY KEY (i_user, i_cg),
-	CONSTRAINT i_userDELETE FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASECADE,
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user),
 	FOREIGN KEY (i_cg) REFERENCES t_category(i_cg)
 	
 );
@@ -94,7 +94,7 @@ CREATE TABLE t_board(
 	m_dt DATETIME DEFAULT NOW(),	-- ""  수정시      ""
    PRIMARY KEY (i_board, i_cg, i_user),
 	FOREIGN KEY (i_cg) REFERENCES t_category(i_cg),
-	CONSTRAINT i_userDELETE FOREIGN KEY (i_user) REFERENCES t_user(i_user) ON DELETE CASECADE -- t_user 테이블의의 i_user pk값이 사라지면 t_board테이블에 등록되어있는 i_user pk값도 같이 사라지게 
+	FOREIGN KEY (i_user) REFERENCES t_user(i_user)
 );
 
 INSERT INTO t_board (title, ctnt, addr, i_cg, i_user) VALUES ('두글','두내용','도원동', 1, 1);

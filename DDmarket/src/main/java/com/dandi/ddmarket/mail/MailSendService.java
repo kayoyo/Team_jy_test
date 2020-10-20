@@ -62,12 +62,12 @@ public class MailSendService {
     }
 	
 	
-	// 아디찾기
+	// 아이디 찾기
 	public void sendAutoMailFindId(String email, String user_id) {
 		
 		try {
             MailUtils sendMail = new MailUtils(mailSender);
-            sendMail.setSubject("DDMarket 아이디가 도착하였습니다. ");
+            sendMail.setSubject("DDMarket 아이디를 확인해주세요. ");
             sendMail.setText(new StringBuffer().append("<h1>[ ID를 확인해 주세요 ]</h1><hr>")					
 					.append("<h2 style='width: 170px; color: black;'> ID : " + user_id + "</h2>")
 					.toString());
@@ -83,7 +83,8 @@ public class MailSendService {
 	    }
     }
 	
-	// 이메일 인증
+	
+	// 이메일 인증 (만들어 놨지만 현재 사용안하고있음 추후 필요할떄 사용하기)
 	public String sendAutoMail(String email) {
 		 
 		String authKey = getKey(6);

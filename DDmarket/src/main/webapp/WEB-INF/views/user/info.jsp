@@ -66,7 +66,7 @@
             <section class="user-addr">
                 <form id="addrFrm" action="/user/info" method="post" onsubmit="return addrChk()">
                 	<div class="div_addr">
-                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" placeholder="우편번호" value="${data.addr }" onclick="sample4_execDaumPostcode()"><br>
+                    	<input type="text" id="sample4_postcode" name="post" class="addr_input" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
                     	<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
 						<input type="text" id="sample4_jibunAddress" name="addr" class="addr_input" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
 						<input type="text" id="sample4_roadAddress" name="road" class="addr_input" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">
@@ -101,6 +101,7 @@
 	                    	<c:forEach items="${categoryList}" var="item">
 		                    	<input type="checkbox" name="categoryLike" id="f-wear" value="${item.i_cg }" onclick="count_ck(this);">
 		                        <label for="f-wear">${item.cg_nm }</label>
+		                        <br><hr>
 	                        </c:forEach>
 	                    </div>
 	                    <!--  
@@ -144,6 +145,9 @@
 
 if(${imgErr != null}) {
 	alert('${imgErr}');
+	
+} else if(${serverErr != null}) {
+	alert('${serverErr}');
 }
 
 // 닉네임, 이메일 칸에 입력이 들어올시 체크 아이콘은 숨기고, 다시 체크하도록 유도
@@ -183,7 +187,7 @@ $('.emailChk').click(function() {
 		if(imgFrm.user_profile_img.value.length == 0 ||
 				imgFrm.user_profile_img.value == null ||
 				imgFrm.user_profile_img.value == '') {
-			alert('사진을 등록해주세요')
+			alert('사진을 변경해주세요')
 			return false;
 		}
 	}

@@ -1,9 +1,8 @@
 package com.dandi.ddmarket.user;
 
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,10 @@ import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
 
+/*
+ * 	ra.addFlashAttribute / ra.addAttribute 차이
+ *       jsp 까지넘어감		GET메소드까지 넘어감
+ */
 
 @Controller
 @RequestMapping("/user")
@@ -106,7 +109,7 @@ public class UserController {
 		
 		int result = service.login(param);
 		
-		if(result == Const.SUCCESS) {
+		if(result == Const.SUCCESS) { // 로그인성공 
 			hs.setAttribute(Const.LOGIN_USER, param);
 			return "redirect:/" + ViewRef.INDEX_MAIN;
 		}
@@ -129,7 +132,7 @@ public class UserController {
 	public String join(Model model, RedirectAttributes ra) {
 		int uNumCode = (int)(Math.random() * 88888888 + 10000000); // 고유번호 8자리 랜덤으로 지정
 		model.addAttribute("uNumCode",uNumCode);
-		model.addAttribute("joinErrMsg"); // 서버에러시 띄우는 alert창
+		model.addAttribute("joinErrMsg"); // 서버에러시 띄우는 alert창 (지워도됨 POST에서 addFlash로 값을 보냈기에 바로 jsp까지 직통으로감)
 		model.addAttribute("view",ViewRef.USER_JOIN);
 		
 		return ViewRef.MENU_TEMP;
@@ -137,12 +140,6 @@ public class UserController {
 
 	@RequestMapping(value="/join", method = RequestMethod.POST) 
 	public String join(Model model, UserVO param, HttpSession hs, RedirectAttributes ra) {
-		
-		if(param.getProfile_img() == null) {
-			param.setProfile_img("default.jpg");
-		}
-		
-		System.out.println("파람 이미지 : " + param.getProfile_img());
 		
 		int result = service.joinUser(param);
 		
@@ -297,27 +294,33 @@ public class UserController {
 	@RequestMapping(value="/info", method = RequestMethod.GET)
 	public String info(Model model, UserPARAM param, HttpSession hs) {
 		
-		try {
+		try {			
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
-			
-			model.addAttribute("imgErr");
-			model.addAttribute("data",service.selUser(param));
-			model.addAttribute("categoryList", service.selCategory());
-			model.addAttribute("view", ViewRef.USER_INFO);
-			
-			return ViewRef.MENU_TEMP;
 			
 		} catch (Exception e) {
 			model.addAttribute("loginMsg", "로그인을 해주세요");
 			return ViewRef.ORIGIN_TEMP;
 		}
+		
+		// ★에러뜰경우 카테고리 테이블 만들었는지 확인 
+		
+		model.addAttribute("imgErr");
+		model.addAttribute("categoryList", service.selCategory());
+		model.addAttribute("view", ViewRef.USER_INFO);
+		
+		return ViewRef.MENU_TEMP;
+					
 	}
 	
 	// 프로필 사진 등록 / 수정  (mReq를 info.post에 넣으니 에러뜸)
 	@RequestMapping(value="/imgUpload", method = RequestMethod.POST)
 	public String imgUpload(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
 			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
+		
+		/*
+		 *	삭제 기능 만들기 ( jsp에서 hidden result값으로 구분지어 기능수행 하게 ) 
+		 */
 		
 		try {
 			int i_user = SecurityUtils.getLoginUserPk(hs); 
@@ -348,38 +351,38 @@ public class UserController {
 	public String info(Model model, UserVO vo, UserPARAM param,
 			HttpServletRequest request,	HttpSession hs, RedirectAttributes ra) {
 		
-		int i_user = SecurityUtils.getLoginUserPk(hs); // 유저pk값을 받아와 mapper에서 그 where절에 pk값을 넣음
+		int i_user = SecurityUtils.getLoginUserPk(hs); // 유저pk값을 받아와 mapper에서  where절에 pk값을 넣음
 		param.setI_user(i_user);
 				
 		int result = Integer.parseInt(request.getParameter("result"));
-				
+		System.out.println("result 값 : " + result);
+		
 		/*
 		 *	 3 비번변경  4 닉넴변경  5 주소변경  6 이메일 변경  7 관심사 변경  
 		 */
 		
-		if (result == 3) { 
-			System.out.println("3번 비밀번호 변경");			 
-			int chk = service.changePw(param);
-					
-		} else if (result == 4) {
-			System.out.println("4번 닉네임변경");
-			int chk = service.changeNick(param);
-			
-		} else if (result == 5) {
-			System.out.println("5번 주소변경");
-			int chk = service.changeAddr(param);
-			
-		} else if (result == 6) {
-			System.out.println("6번 이메일 변경");			
-			int chk = service.changeEmail(param);
-			
-		} else {
-			System.out.println("7번 관심사 변경");
+		int chk = 0;
+		switch(result) {
+		case 3: chk = service.changePw(param); break;
+		
+		case 4: chk = service.changeNick(param); break;
+		
+		case 5: chk = service.changeAddr(param); break;
+		
+		case 6: chk = service.changeEmail(param); break;
+		
+		case 7:
 			String categoryList[] = request.getParameterValues("categoryLike");
 			param.setFavI_cg_1(categoryList[0]);
 			param.setFavI_cg_2(categoryList[1]);
 			param.setFavI_cg_3(categoryList[2]);
 			service.changeCategory(param);
+		}
+		System.out.println("chk값 : " + chk);
+		
+		if(chk == 0) { // 서버에러 떳을시
+			ra.addFlashAttribute("serverErr", "서버에러! 잠시후 다시 시도해 주세요");
+			return "redirect:/" + ViewRef.USER_INFO;
 		}
 		
 		return "redirect:/" + ViewRef.USER_INFO;
