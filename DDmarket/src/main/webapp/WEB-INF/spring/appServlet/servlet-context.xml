@@ -28,7 +28,6 @@
 	
 	<resources mapping="/res/**" location="/resources/" /><!-- src-main-webapp-resources로 가라는 의미 res안에 들어가는 파일 : 이미지 css 등 -->
 
-
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<!-- 우리가 썻던 ViewResolver라고 보면됨 views를 만약 user로 쓰고싶다 그럼 user로 바꾸면됨 그리고 기본 WEB-INF/views안에 여러주소값 적고 마지막에 .jsp를 찍어준다 -->	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

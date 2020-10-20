@@ -103,7 +103,7 @@
 		                        <label for="f-wear">${item.cg_nm }</label>
 	                        </c:forEach>
 	                    </div>
-	                        <!--  
+	                    <!--  
 	                        <input type="checkbox" name="categoryLike" id="f-wear" value="1" onclick="count_ck(this);">
 	                        <label for="f-wear">여성의류</label>
 	                        <input type="checkbox" name="categoryLike" id="m-wear" value="2" onclick="count_ck(this);">

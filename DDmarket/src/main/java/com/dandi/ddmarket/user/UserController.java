@@ -1,6 +1,9 @@
 package com.dandi.ddmarket.user;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dandi.ddmarket.Const;
 import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
-import com.dandi.ddmarket.category.model.CategoryVO;
 import com.dandi.ddmarket.mail.MailSendService;
 import com.dandi.ddmarket.mail.model.EmailVO;
 import com.dandi.ddmarket.user.model.UserDMI;
