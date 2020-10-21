@@ -143,8 +143,14 @@ public class UserController {
 
 	@RequestMapping(value="/join", method = RequestMethod.POST) 
 	public String join(Model model, UserVO param, HttpSession hs, RedirectAttributes ra) {
+		int result = 0;
 		
-		int result = service.joinUser(param);
+		try {
+			result = service.joinUser(param);	// 빈값 넘어오면 DB에러뜨니까
+		} catch (Exception e) {
+			ra.addFlashAttribute("joinErrMsg","서버에러! 회원가입을 다시 시도해 주세요");
+			return "redirect:/" + ViewRef.USER_JOIN;
+		}
 		
 		if(result == Const.SUCCESS) {
 			return "redirect:/" + ViewRef.USER_LOGIN;
@@ -315,23 +321,44 @@ public class UserController {
 		return ViewRef.MENU_TEMP;
 					
 	}
+
+
+	@RequestMapping(value="/imgDel", method = RequestMethod.POST)
+	public String imgDel(UserPARAM param, HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		int result = 0;
+		
+		String dbUserImg = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
+		String path = hs.getServletContext().getRealPath("") +  "resources/img/profile_img/user/" + i_user + "/" + dbUserImg;
+		
+		System.out.println("사진명 : " + dbUserImg);
+		System.out.println("경로 : " + path);
+		
+		File file = new File(path);
+		if(file.exists()) {
+			result = service.delUserProfileImg(i_user);
+			file.delete();
+			UserPARAM param2 = ((UserPARAM)hs.getAttribute(Const.LOGIN_USER));
+			param2.setProfile_img(null);
+			hs.removeAttribute(Const.LOGIN_USER);
+			hs.setAttribute(Const.LOGIN_USER, param2);
+			return "redirect:/user/info";
+		}
+		return "redirect:/" +  ViewRef.USER_INFO;		
+		
+	}	
+	
 	
 	// 프로필 사진 등록 / 수정  (mReq를 info.post에 넣으니 에러뜸)
 	@RequestMapping(value="/imgUpload", method = RequestMethod.POST)
-	public String imgUpload(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
+	public String imgUpload(Model model, UserVO vo, UserPARAM param, HttpServletRequest request,
 			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
 		
-		int result = Integer.parseInt(request.getParameter("result"));
-		if(result == 1) {
-			// 삭제만들기
-			// 서비스 추가 (xml 추가)
-		}
-		
-		
 		try {
-			int i_user = SecurityUtils.getLoginUserPk(hs); 
-			param.setI_user(i_user);
 			
+			int i_user = SecurityUtils.getLoginUserPk(hs);
+			param.setI_user(i_user);
+			System.out.println("5");
 			System.out.println("멀티파트쳌 : " + mReq);
 			String dbUser = ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getProfile_img();
 			
@@ -394,28 +421,5 @@ public class UserController {
 		return "redirect:/" + ViewRef.USER_INFO;
 	}
 	
-	/*		@@ 파일삭제 @@
-	 * 
-	// detail.jsp 에서 ajax로 값 삭제하는 메소드
-	// RestController.java 의 ajaxDelRecMenu() 메소드 와 연동
-	public int delRecMenu(RestPARAM param, String realPath) {
-		//파일 삭제
-		List<RestRecMenuVO> list = mapper.selRestRecMenus(param);
-		if(list.size() == 1) {
-			RestRecMenuVO item = list.get(0);
-			
-			if(item.getMenu_pic() != null && !item.getMenu_pic().equals("")) { //이미지 있음 > 삭제!!
-				File file = new File(realPath + item.getMenu_pic());
-				if(file.exists()) {
-					if(file.delete()) {
-						return mapper.delRestRecMenu(param);
-					} else {
-						return 0;
-					}
-				}
-			}
-		}		
-		
-		return mapper.delRestRecMenu(param);
-		*/
+	
 }

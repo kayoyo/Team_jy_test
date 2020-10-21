@@ -14,6 +14,7 @@
 		<if test="user_id != null and user_id != ''"> user_id = #{user_id}</if>
 	</select>
 	
+	
 	<!-- 비밀번호 찾기 -->
 	<select id="findPwChk" parameterType="UserPARAM" resultType="UserDMI">
 		SELECT i_user, user_id, user_pw, salt, email FROM t_user
@@ -52,6 +53,7 @@
 		(user_id, user_pw, salt, nm, nick, uNum, email, post, addr, road, joinPass)
 		VALUES
 		(#{user_id}, #{user_pw}, #{salt}, #{nm}, #{nick}, #{uNum}, #{email}, #{post}, #{addr}, #{road}, #{joinPass})
+		returning i_user
 	</insert>		
 						
 							<!-- update -->
@@ -102,10 +104,22 @@
 		, favI_cg_3 = #{favI_cg_3}
 	</update>
 	
+	<update id="delImg" parameterType="int">
+		UPDATE t_user
+		SET profile_img = NULL
+		WHERE i_user = #{i_user}
+	</update>
+	
+	
+	
 	
 	
 							<!-- delete -->
 	
+	<delete id="delProfile_img" parameterType="UserPARAM">
+		DELETE FROM t_user
+		WHERE profile_img = #{profile_img}
+	</delete>
 		
 	
 	

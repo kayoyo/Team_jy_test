@@ -41,10 +41,13 @@ public interface UserMapper {
 		
 	int insProfile_img(UserVO vo); 	  // 프로필사진 등록
 	
-	int changeCategory(UserPARAM param);
+	int changeCategory(UserPARAM param);	// 관심사 등록
+	
+	int delImg(int i_user);
 	
 		
 	// delete 
+	int delProfile_img(UserPARAM param);
 	
 	
 	

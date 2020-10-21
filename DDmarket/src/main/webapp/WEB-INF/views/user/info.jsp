@@ -45,8 +45,7 @@
                             </form>
                         </div>
                         <div class="delBtn">
-                            <form id="imgDelFrm" action="/user/imgUpload" method="post">
-                            	<input type="hidden" name="result" value="1">
+                            <form id="imgDelFrm" action="/user/imgDel" method="post">
                                 <input class="cngImg" type="submit" value="사진삭제">
                             </form>
                         </div>
@@ -131,6 +130,8 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+
+
 
 if(${imgErr != null}) {
 	alert('${imgErr}');

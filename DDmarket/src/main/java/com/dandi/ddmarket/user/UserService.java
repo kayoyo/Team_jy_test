@@ -113,14 +113,30 @@ public class UserService {
 	
 	// 회원가입
 	public int joinUser(UserVO param) {
-		String pw = param.getUser_pw();
-		String salt = SecurityUtils.generateSalt();
-		String cryptPw = SecurityUtils.getEncrypt(pw, salt);
+		int result = 0;
 		
-		param.setSalt(salt);
-		param.setUser_pw(cryptPw);
-		
-		return mapper.joinUser(param);
+		if(param.getUser_id() == "" || param.getUser_pw() == "" 
+				|| param.getEmail() == "" || param.getNick() == "" 
+				|| param.getNm() == "" || param.getPost() == ""
+				|| param.getAddr() == "" || param.getRoad() == "") {
+			
+			System.out.println(" 1 유저아디 : " + param.getUser_id());
+			result = Const.FAIL;
+			
+		} else {
+			System.out.println(" 2 유저아디 : " + param.getUser_id());
+			
+			String pw = param.getUser_pw();
+			String salt = SecurityUtils.generateSalt();
+			String cryptPw = SecurityUtils.getEncrypt(pw, salt);
+			
+			param.setSalt(salt);
+			param.setUser_pw(cryptPw);
+			
+			result = Const.SUCCESS;
+			mapper.joinUser(param);
+		}
+		return result;
 	}
 	
 	
@@ -169,6 +185,7 @@ public class UserService {
 	}
 	
 	
+	// 프로필사진 등록
 	public String insUserProfileImg(MultipartHttpServletRequest mReq, UserVO vo) {
 		
 		int i_user = SecurityUtils.getLoginUserPk(mReq.getSession());
@@ -212,8 +229,19 @@ public class UserService {
 		mapper.insProfile_img(vo);
 		
 		return saveFileNm;
-		
 	}
+	
+	
+	// 프로필사진 삭제
+	public int delUserProfileImg(int i_user) {
+		mapper.delImg(i_user);
+		return 1;
+	}
+	 
+	
+	
+	
+	
 	
 	// 카테고리 나타내기
 	public List<CategoryVO> selCategory() {		
