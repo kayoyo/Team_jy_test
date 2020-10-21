@@ -26,17 +26,34 @@
             </div>
             <h2 class="title">프로필 사진 변경</h2>
             <span class="line"></span>
+            
             <section class="pro_Img">
-                <form id="imgFrm" action="/user/imgUpload" method="post" enctype="multipart/form-data" onsubmit="return imgChk()">
-                    <div class="pImg">
-                         <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}">
+                <div class="imgBtn">
+                    <div class="pImgbox">
+                        <label for="file">
+                        	<c:if test="${loginUser.profile_img == null }">
+                        		<img src="/res/img/default.jpg" onchange="setThumbnail(e)" alt="" class="img">
+                        	</c:if>
+                        	<c:if test="${loginUser.profile_img != null }">
+                                <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
+                        	</c:if>
+                        </label>
+                        <div class="div-cngBtn">
+                            <form id="imgFrm" action="/user/imgUpload" method="post" enctype="multipart/form-data" onsubmit="return imgChk()">
+                                <input type="file" name="user_profile_img" id="file" accept="image/png, image/jpeg, image/jpg">
+                                <input class="cngImg" type="submit" value="사진변경">
+                            </form>
+                        </div>
+                        <div class="delBtn">
+                            <form id="imgDelFrm" action="/user/imgUpload" method="post">
+                            	<input type="hidden" name="result" value="1">
+                                <input class="cngImg" type="submit" value="사진삭제">
+                            </form>
+                        </div>
                     </div>
-                    <div class="imgBtn">
-                        <input type="file" name="user_profile_img" value="사진등록"><br>
-                        <button type="submit">사진변경</button>
-                    </div>
-                </form>
+                </div>
             </section>
+            
             <h2 class="title">비밀번호 변경</h2>
             <span class="line"></span>
             <section class="user-pw">
@@ -97,40 +114,12 @@
             <span class="line"></span>
             <section id="category">
                 <form id="likeFrm" action="/user/info" method="post">
-	                    <div class="category-front">
+	                    <div class="category-box">
 	                    	<c:forEach items="${categoryList}" var="item">
 		                    	<input type="checkbox" name="categoryLike" id="f-wear" value="${item.i_cg }" onclick="count_ck(this);">
 		                        <label for="f-wear">${item.cg_nm }</label>
-		                        <br><hr>
 	                        </c:forEach>
-	                    </div>
-	                    <!--  
-	                        <input type="checkbox" name="categoryLike" id="f-wear" value="1" onclick="count_ck(this);">
-	                        <label for="f-wear">여성의류</label>
-	                        <input type="checkbox" name="categoryLike" id="m-wear" value="2" onclick="count_ck(this);">
-	                        <label for="m-wear">남성의류</label>
-	                        <input type="checkbox" name="categoryLike" id="fashion" value="3" onclick="count_ck(this);">
-	                        <label for="fashion">패션잡화</label>
-	                        <input type="checkbox" name="categoryLike" id="digital" value="4" onclick="count_ck(this);">
-	                        <label for="digital">디지털 | 가전</label>
-	                        <input type="checkbox" name="categoryLike" id="buti" value="5" onclick="count_ck(this);">
-	                        <label for="buti">뷰티 | 미용</label>
-	                    
-	                    
-	                    <div class="category-back">
-	                        <input type="checkbox" name="categoryLike" id="life" value="6" onclick="count_ck(this);">
-	                        <label for="life">생활 | 가구</label>
-	                        <input type="checkbox" name="categoryLike" id="book" value="7" onclick="count_ck(this);">
-	                        <label for="book">도서 | 티켓</label>
-	                        <input type="checkbox" name="categoryLike" id="child" value="8" onclick="count_ck(this);">
-	                        <label for="child">유아용 | 출산</label>
-	                        <input type="checkbox" name="categoryLike" id="comp" value="9" onclick="count_ck(this);">
-	                        <label for="comp">무료나눔</label>
-	                        <input type="checkbox" name="categoryLike" id="etc" value="10" onclick="count_ck(this);">
-	                        <label for="etc">기타</label>
-	                    </div>
-	                    -->
-					                    	
+	                    </div>          	
                     <input type="hidden" name="result" value="7">
                     <button class="categoryChg">등록</button>
                 </form>
@@ -181,6 +170,17 @@ $('.emailChk').click(function() {
 	emailFrm.emailUnChk.value = 'chk'
 })
 
+	
+	let reader = new FileReader()
+	reader.onload = function(readerEvent) {
+	    document.querySelector('.img').setAttribute('src', readerEvent.target.result)
+	};
+	document.querySelector('#file').addEventListener('change', function(changeEvent) {
+	    let imgFile = changeEvent.target.files[0]
+	    reader.readAsDataURL(imgFile)
+	});
+	
+	
 	
 	// 프로필 이미지 체크
 	function imgChk() {

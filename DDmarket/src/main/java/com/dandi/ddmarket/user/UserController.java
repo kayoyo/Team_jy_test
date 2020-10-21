@@ -1,6 +1,9 @@
 package com.dandi.ddmarket.user;
 
 
+import java.io.File;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
@@ -318,9 +321,12 @@ public class UserController {
 	public String imgUpload(Model model, UserVO vo,UserPARAM param, HttpServletRequest request,
 			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
 		
-		/*
-		 *	삭제 기능 만들기 ( jsp에서 hidden result값으로 구분지어 기능수행 하게 ) 
-		 */
+		int result = Integer.parseInt(request.getParameter("result"));
+		if(result == 1) {
+			// 삭제만들기
+			// 서비스 추가 (xml 추가)
+		}
+		
 		
 		try {
 			int i_user = SecurityUtils.getLoginUserPk(hs); 
@@ -362,29 +368,54 @@ public class UserController {
 		 */
 		
 		int chk = 0;
+		
 		switch(result) {
-		case 3: chk = service.changePw(param); break;
-		
-		case 4: chk = service.changeNick(param); break;
-		
-		case 5: chk = service.changeAddr(param); break;
-		
-		case 6: chk = service.changeEmail(param); break;
-		
-		case 7:
-			String categoryList[] = request.getParameterValues("categoryLike");
-			param.setFavI_cg_1(categoryList[0]);
-			param.setFavI_cg_2(categoryList[1]);
-			param.setFavI_cg_3(categoryList[2]);
-			service.changeCategory(param);
+			case 3: chk = service.changePw(param); break;
+			
+			case 4: chk = service.changeNick(param); break;
+			
+			case 5: chk = service.changeAddr(param); break;
+			
+			case 6: chk = service.changeEmail(param); break;
+			
+			case 7:
+				String categoryList[] = request.getParameterValues("categoryLike");
+				param.setFavI_cg_1(categoryList[0]);
+				param.setFavI_cg_2(categoryList[1]);
+				param.setFavI_cg_3(categoryList[2]);
+				service.changeCategory(param);
 		}
-		System.out.println("chk값 : " + chk);
 		
 		if(chk == 0) { // 서버에러 떳을시
-			ra.addFlashAttribute("serverErr", "서버에러! 잠시후 다시 시도해 주세요");
+			ra.addFlashAttribute("serverErr", "서버에러! 다시 시도해 주세요");
 			return "redirect:/" + ViewRef.USER_INFO;
 		}
 		
 		return "redirect:/" + ViewRef.USER_INFO;
 	}
+	
+	/*		@@ 파일삭제 @@
+	 * 
+	// detail.jsp 에서 ajax로 값 삭제하는 메소드
+	// RestController.java 의 ajaxDelRecMenu() 메소드 와 연동
+	public int delRecMenu(RestPARAM param, String realPath) {
+		//파일 삭제
+		List<RestRecMenuVO> list = mapper.selRestRecMenus(param);
+		if(list.size() == 1) {
+			RestRecMenuVO item = list.get(0);
+			
+			if(item.getMenu_pic() != null && !item.getMenu_pic().equals("")) { //이미지 있음 > 삭제!!
+				File file = new File(realPath + item.getMenu_pic());
+				if(file.exists()) {
+					if(file.delete()) {
+						return mapper.delRestRecMenu(param);
+					} else {
+						return 0;
+					}
+				}
+			}
+		}		
+		
+		return mapper.delRestRecMenu(param);
+		*/
 }
