@@ -110,9 +110,10 @@
 		    </form>
 			</section>
             <h2 class="title">관심 카테고리 선택</h2>
+            <div id="categoryChkResult" class="cgMsg"></div>
             <span class="line"></span>
             <section id="category">
-                <form id="likeFrm" action="/user/info" method="post">
+                <form id="likeFrm" action="/user/info" method="post" onsubmit="return likeChk()">
 	                    <div class="category-box">
 	                    	<c:forEach items="${categoryList}" var="item">
 		                    	<input type="checkbox" name="categoryLike" id="f-wear" value="${item.i_cg }" onclick="count_ck(this);">
@@ -138,6 +139,9 @@ if(${imgErr != null}) {
 	
 } else if(${serverErr != null}) {
 	alert('${serverErr}');
+	
+} else if(${categoryMsg != null}) {
+	alert('${categoryMsg}');
 }
 
 // 닉네임, 이메일 칸에 입력이 들어올시 체크 아이콘은 숨기고, 다시 체크하도록 유도
@@ -180,7 +184,6 @@ $('.emailChk').click(function() {
 	    let imgFile = changeEvent.target.files[0]
 	    reader.readAsDataURL(imgFile)
 	});
-	
 	
 	
 	// 프로필 이미지 체크
@@ -302,13 +305,24 @@ $('.emailChk').click(function() {
 				chkCnt++;
 			}			
 		}
-
+		
 		if(chkCnt > 3){
 			alert("관심사는 최대 3개까지 선택가능합니다");
 			obj.checked = false;
 			return false;
-		}
+			
+		} else if (chkCnt < 3) {
+			categoryChkResult.innerText = '관심사는 총 3가지를 선택하세요.';		
+			obj.chechked = false;
+			return false;
+			
+		} else if (chkCnt == 3) {
+			categoryChkResult.innerText = '';
+		} 
 	}
+	
+	
+	
 	
 	// 닉네임 중복체크 (ajax)
 	function chkNick() {

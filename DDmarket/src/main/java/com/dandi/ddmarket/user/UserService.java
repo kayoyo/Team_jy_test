@@ -236,13 +236,8 @@ public class UserService {
 	public int delUserProfileImg(int i_user) {
 		mapper.delImg(i_user);
 		return 1;
-	}
-	 
-	
-	
-	
-	
-	
+	}	 
+		
 	// 카테고리 나타내기
 	public List<CategoryVO> selCategory() {		
 		List<CategoryVO> list = new ArrayList<CategoryVO>();  
@@ -251,26 +246,23 @@ public class UserService {
 		return list;
 	}
 	
-	/*
-	 *	나중에 시간날때 null 체크형식으로 다묶을수있으면 묶어서 처리하기 	
-	 */
-	
+		
 	// 닉네임 변경
-	public int changeNick(UserPARAM param) {
-		int result = mapper.changeNick(param);
-		return result;
-	}
-	
-	// 주소 변경
-	public int changeAddr(UserPARAM param) {
-		int result = mapper.changeAddr(param);
-		return result;
-	}
-	
-	// 이메일 변경
-	public int changeEmail(UserPARAM param) {
-		int result = mapper.changeEmail(param);
-		return result;
+	public int changeInfo(UserPARAM param, int result) {
+		if(result == 3) { // 비밀번호 변경
+			return changePw(param);
+			
+		} else if(result == 4) { // 닉네임 변경
+			return mapper.changeNick(param);
+			
+		} else if(result == 5) { // 주소변경
+			return mapper.changeAddr(param);
+			
+		} else if(result == 6) { // 이메일 변경
+			return mapper.changeEmail(param);
+		} 
+		
+		return 0;	
 	}
 	
 	// 관심사 변경

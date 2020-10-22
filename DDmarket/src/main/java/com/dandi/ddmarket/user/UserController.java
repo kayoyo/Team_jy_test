@@ -72,6 +72,7 @@ public class UserController {
 		
 		int result = service.nickChk(param);
 		
+		// 지웁시다!
 		if(result == 0) {
 			System.out.println("result : " + result);
 		}
@@ -395,26 +396,31 @@ public class UserController {
 		 */
 		
 		int chk = 0;
-		
 		switch(result) {
-			case 3: chk = service.changePw(param); break;
+			case 3: case 4:
+			case 5: case 6:
+				chk = service.changeInfo(param, result); break;
 			
-			case 4: chk = service.changeNick(param); break;
-			
-			case 5: chk = service.changeAddr(param); break;
-			
-			case 6: chk = service.changeEmail(param); break;
-			
-			case 7:
-				String categoryList[] = request.getParameterValues("categoryLike");
-				param.setFavI_cg_1(categoryList[0]);
-				param.setFavI_cg_2(categoryList[1]);
-				param.setFavI_cg_3(categoryList[2]);
-				service.changeCategory(param);
+			case 7: 
+				try { // 만약 3개값 다 못받아올경우 에러방지
+					String categoryList[] = request.getParameterValues("categoryLike");
+					param.setFavI_cg_1(categoryList[0]);
+					param.setFavI_cg_2(categoryList[1]);
+					param.setFavI_cg_3(categoryList[2]);
+					chk = service.changeCategory(param);
+					ra.addFlashAttribute("categoryMsg", "관심사가 수정되었습니다");
+					return "redirect:/" + ViewRef.USER_INFO;
+				} catch(Exception e) {
+					chk = 7;
+				}
 		}
 		
-		if(chk == 0) { // 서버에러 떳을시
+		if(chk == 0) { // 메소드 실행안됬을 경우
 			ra.addFlashAttribute("serverErr", "서버에러! 다시 시도해 주세요");
+			return "redirect:/" + ViewRef.USER_INFO;
+			
+		} else if(chk == 7) {
+			ra.addFlashAttribute("serverErr", "관심사는 총 3개를 선택해주세요");
 			return "redirect:/" + ViewRef.USER_INFO;
 		}
 		
