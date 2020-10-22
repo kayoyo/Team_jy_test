@@ -77,6 +77,7 @@
                     <button class="fixBtn">변경</button>
                 </form>
             </section>
+            <!-- input 태그에서 키보드로 임의적으로 주소 못치게 막아주기 (input 태그속성 사용하거나, jquery 함수사용) -->
             <h2 class="title">주소 변경</h2>
             <span class="line"></span>
             <section class="user-addr">

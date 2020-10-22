@@ -260,13 +260,13 @@ public class UserController {
 	
 	
 	// 아이디 찾기 (findId)
-	@RequestMapping(value="findId", method = RequestMethod.GET)
+	@RequestMapping(value="/findId", method = RequestMethod.GET)
 	public String findId(Model model) {
 		model.addAttribute("view",ViewRef.USER_FINDID);
 		return ViewRef.MENU_TEMP;
 	}
 	
-	@RequestMapping(value="findId", method = RequestMethod.POST)
+	@RequestMapping(value="/findId", method = RequestMethod.POST)
 	public String findId(UserPARAM param, HttpSession hs, RedirectAttributes ra) {
 		UserDMI dbUser = new UserDMI();
 		
@@ -285,6 +285,8 @@ public class UserController {
 		}
 	}
 	
+	////////////////////////////////////
+	
 	
 	// 마이페이지 (myPage)
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
@@ -299,6 +301,8 @@ public class UserController {
 		return "redirect:/" + ViewRef.MENU_TEMP;
 	}
 	
+	
+	////////////////////////////////////
 	
 	// 개인정보변경 (info)
 	@RequestMapping(value="/info", method = RequestMethod.GET)
@@ -346,17 +350,15 @@ public class UserController {
 			return "redirect:/user/info";
 		}
 		return "redirect:/" +  ViewRef.USER_INFO;		
-		
 	}	
 	
 	
-	// 프로필 사진 등록 / 수정  (mReq를 info.post에 넣으니 에러뜸)
+	// 프로필 사진 등록 / 수정  (mReq를 info.post에 넣으니 에러뜸) (코드 수정해야됨)
 	@RequestMapping(value="/imgUpload", method = RequestMethod.POST)
 	public String imgUpload(Model model, UserVO vo, UserPARAM param, HttpServletRequest request,
 			HttpSession hs, RedirectAttributes ra, MultipartHttpServletRequest mReq) {
 		
 		try {
-			
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 			System.out.println("5");
@@ -387,6 +389,7 @@ public class UserController {
 		
 		int i_user = SecurityUtils.getLoginUserPk(hs); // 유저pk값을 받아와 mapper에서  where절에 pk값을 넣음
 		param.setI_user(i_user);
+		
 				
 		int result = Integer.parseInt(request.getParameter("result"));
 		System.out.println("result 값 : " + result);
@@ -410,8 +413,9 @@ public class UserController {
 					chk = service.changeCategory(param);
 					ra.addFlashAttribute("categoryMsg", "관심사가 수정되었습니다");
 					return "redirect:/" + ViewRef.USER_INFO;
+					
 				} catch(Exception e) {
-					chk = 7;
+					chk = 7; // 관심사 에러띄울 메세지
 				}
 		}
 		
@@ -419,7 +423,7 @@ public class UserController {
 			ra.addFlashAttribute("serverErr", "서버에러! 다시 시도해 주세요");
 			return "redirect:/" + ViewRef.USER_INFO;
 			
-		} else if(chk == 7) {
+		} else if(chk == 7) { // 관심사 선택에서 3개 미만 선택됬을 경우
 			ra.addFlashAttribute("serverErr", "관심사는 총 3개를 선택해주세요");
 			return "redirect:/" + ViewRef.USER_INFO;
 		}

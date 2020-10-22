@@ -211,15 +211,16 @@ public class UserService {
 				
 		System.out.println("사진저장주소  : " + path);
 		
-		String originFileNm = fileList.getOriginalFilename();
-		String ext = FileUtils.getExt(originFileNm);
-		String saveFileNm = UUID.randomUUID() + ext;
+		String originFileNm = fileList.getOriginalFilename(); 
+		String ext = FileUtils.getExt(originFileNm); 
+		String saveFileNm = UUID.randomUUID() + ext; 
 				
-		vo.setProfile_img(saveFileNm);
-		vo.setI_user(i_user);
+		//vo.setProfile_img(saveFileNm);
+		//vo.setI_user(i_user);
 				
 		try {
 			fileList.transferTo(new File(path + saveFileNm));
+			vo.setI_user(i_user);
 			vo.setProfile_img(saveFileNm);
 			
 		} catch(Exception e) {
