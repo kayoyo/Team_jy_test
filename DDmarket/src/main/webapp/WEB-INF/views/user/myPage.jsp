@@ -47,7 +47,7 @@
                             <br>
                             <input type="text" name="" id="" placeholder="비밀번호 확인">
                             <br>
-                            <button type="">변경하기</button>
+                            <button type="submit">변경하기</button>
                         </form>
                         
                         

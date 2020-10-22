@@ -79,7 +79,7 @@
                     </div>
                                                   
                     <div>
-                    	<input type="text" id="sample4_postcode" name="post" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()"><br>
+                    	<input type="text" id="sample4_postcode" name="post" placeholder="클릭할시 주소검색창이 나타납니다" onclick="sample4_execDaumPostcode()" readonly><br>
                     	<input id="addrUnChk" name="addrUnChk" type="hidden" value="unChk">
 						<input type="text" id="sample4_jibunAddress" name="addr" placeholder="지번주소" onclick="sample4_execDaumPostcode()"><br>
 						<input type="text" id="sample4_roadAddress" name="road" placeholder="도로명주소" onclick="sample4_execDaumPostcode()">

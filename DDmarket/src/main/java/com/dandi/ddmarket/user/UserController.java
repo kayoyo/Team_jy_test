@@ -187,7 +187,7 @@ public class UserController {
 		}
 		
 		if(result == Const.SUCCESS) { // 정보가 '일치한다면'
-			String authKey = mss.sendAutoMailFindPw(param.getEmail());
+			String authKey = mss.sendAutoMailFindPw(param.getEmail());	// 실제 이메일 보내는 메소드
 			hs.setAttribute("authKey", authKey);
 			return "redirect:/" + ViewRef.USER_CERCODE; 
 			
@@ -400,8 +400,7 @@ public class UserController {
 		
 		int chk = 0;
 		switch(result) {
-			case 3: case 4:
-			case 5: case 6:
+			case 3: case 4:	case 5: case 6:
 				chk = service.changeInfo(param, result); break;
 			
 			case 7: 
@@ -416,7 +415,7 @@ public class UserController {
 					
 				} catch(Exception e) {
 					chk = 7; // 관심사 에러띄울 메세지
-				}
+				} 
 		}
 		
 		if(chk == 0) { // 메소드 실행안됬을 경우
