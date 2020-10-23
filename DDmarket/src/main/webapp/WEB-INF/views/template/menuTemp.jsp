@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>단디마켓</title>
-<link rel="stylesheet" type="text/css" href="/res/css/common/common.css">
+<link rel="stylesheet" type="text/css" href="/res/css/common.css">
 <!-- 로그인,회원 가입등  풋터와 입력부만 나오게 하는 부분 -->
 </head>
 <body>
+	
+	<button id="TopBtn"><span class="iconify icon-TopBtn" data-inline="false" data-icon="uim:angle-double-up"></span><span class="TOP">TOP</span></button>
 		
 	<main>		   	
 	   	<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>		   	      
@@ -44,5 +46,8 @@
             </div>
         </div>
     </footer>
+    <!-- 
+<script src="/res/js/common_menuTemp.js"></script>
+ -->
 </body>
 </html>

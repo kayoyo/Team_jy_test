@@ -19,6 +19,17 @@ public class IndexController {
 		return ViewRef.DEFAULT_TEMP;
 	}
 	
+	
+	// 서치
+	@RequestMapping(value="/search")
+	public String search(Model model, RedirectAttributes ra) {
+		
+		model.addAttribute("view","/index/search");
+		return ViewRef.DEFAULT_TEMP;
+	}
+	
+	
+	
 	// 각종 메시지 받아서 처리할 alert창 페이지
 	@RequestMapping(value="/oringin")
 	public String origin(Model model, RedirectAttributes ra) {

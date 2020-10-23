@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 변경</title>
-<link rel="stylesheet" type="text/css" href="/res/css/user/findPw.css">
-<link rel="stylesheet" type="text/css" href="/res/css/common/common.css">
+<link rel="stylesheet" type="text/css" href="/res/css/findPw.css">
 </head>
 <body>
 	<main id="content">

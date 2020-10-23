@@ -6,9 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>개인정보 변경</title>
-<link rel="stylesheet" type="text/css" href="/res/css/user/info.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/res/css/animate/animate.css">
+<link rel="stylesheet" href="/res/css/info.css">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 </head>
 <body>
@@ -32,7 +30,7 @@
                     <div class="pImgbox">
                         <label for="file">
                         	<c:if test="${loginUser.profile_img == null }">
-                        		<img src="/res/img/default.jpg" onchange="setThumbnail(e)" alt="" class="img">
+                        		<img src="/res/img/yerin.jpg" onchange="setThumbnail(e)" alt="" class="img">
                         	</c:if>
                         	<c:if test="${loginUser.profile_img != null }">
                                 <img src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}" class="img">                    	
@@ -128,11 +126,12 @@
         </main>        
     </div>
 </body>
+ 
+<script src="/res/js/info.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-
 
 if(${imgErr != null}) {
 	alert('${imgErr}');
@@ -175,16 +174,6 @@ $('.emailChk').click(function() {
 	emailFrm.emailUnChk.value = 'chk'
 })
 
-	
-	let reader = new FileReader()
-	reader.onload = function(readerEvent) {
-	    document.querySelector('.img').setAttribute('src', readerEvent.target.result)
-	};
-	document.querySelector('#file').addEventListener('change', function(changeEvent) {
-	    let imgFile = changeEvent.target.files[0]
-	    reader.readAsDataURL(imgFile)
-	});
-	
 	
 	// 프로필 이미지 체크
 	function imgChk() {

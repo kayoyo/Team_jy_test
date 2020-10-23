@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호찾기</title>
-<link rel="stylesheet" type="text/css" href="/res/css/user/findPw.css">
-<link rel="stylesheet" type="text/css" href="/res/css/common/common.css">
+<link rel="stylesheet" href="/res/css/findPw.css">
 </head>
 <body>
 	<main id="content">

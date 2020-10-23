@@ -2,7 +2,10 @@ package com.dandi.ddmarket.board;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.dandi.ddmarket.ViewRef;
 
 @Controller
 @RequestMapping("/board")
@@ -10,6 +13,25 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService service;
+	
+	@RequestMapping(value="/detail")
+	public String detail(Model model) {
+		
+		model.addAttribute("view", "/board/detail");		
+		return ViewRef.DEFAULT_TEMP;
+	}
+	
+	
+	
+	@RequestMapping(value="/saleReg")
+	public String likeList(Model model) {
+		
+		model.addAttribute("view", "/board/saleReg");		
+		return ViewRef.DEFAULT_TEMP;
+	}
+	
+	
+	
 	
 	
 	

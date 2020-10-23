@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디 찾기</title>
-<link rel="stylesheet" type="text/css" href="/res/css/user/findId.css">
-<link rel="stylesheet" type="text/css" href="/res/css/common/common.css">
+<link rel="stylesheet" type="text/css" href="/res/css/findId.css">
 </head>
 <body>
 	<main id="content">

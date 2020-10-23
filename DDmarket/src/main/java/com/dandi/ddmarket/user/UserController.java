@@ -2,8 +2,6 @@ package com.dandi.ddmarket.user;
 
 
 import java.io.File;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
@@ -27,10 +25,6 @@ import com.dandi.ddmarket.user.model.UserDMI;
 import com.dandi.ddmarket.user.model.UserPARAM;
 import com.dandi.ddmarket.user.model.UserVO;
 
-/*
- * 	ra.addFlashAttribute / ra.addAttribute 차이
- *       jsp 까지넘어감		GET메소드까지 넘어감
- */
 
 @Controller
 @RequestMapping("/user")
@@ -42,7 +36,9 @@ public class UserController {
 	
 	@Autowired
 	private MailSendService mss;  
-		
+	
+	
+			
 	/*
 	 *  	아작스에 hs 세션 값 확인해보고 불필요하면 지우기
 	 */	
@@ -80,7 +76,7 @@ public class UserController {
 	}
 	
 	// 로그아웃 (logout)
-	@RequestMapping("/logout")
+	@RequestMapping(value="/logout")
 	public String logout(Model model, HttpSession hs, RedirectAttributes ra, HttpServletRequest request) {
 		
 		hs.invalidate();
@@ -137,9 +133,9 @@ public class UserController {
 		int uNumCode = (int)(Math.random() * 88888888 + 10000000); // 고유번호 8자리 랜덤으로 지정
 		model.addAttribute("uNumCode",uNumCode);
 		model.addAttribute("joinErrMsg"); // 서버에러시 띄우는 alert창 (지워도됨 POST에서 addFlash로 값을 보냈기에 바로 jsp까지 직통으로감)
-		model.addAttribute("view",ViewRef.USER_JOIN);
+		//model.addAttribute("view",ViewRef.USER_JOIN);
 		
-		return ViewRef.MENU_TEMP;
+		return "/user/join";
 	}	
 
 	@RequestMapping(value="/join", method = RequestMethod.POST) 
@@ -285,24 +281,42 @@ public class UserController {
 		}
 	}
 	
-	////////////////////////////////////
-	
 	
 	// 마이페이지 (myPage)
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String myPage(Model model) {
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
-		return "redirect:/" + ViewRef.MENU_TEMP;
+		return ViewRef.DEFAULT_TEMP;
 	}
 	
 	@RequestMapping(value="/myPage", method = RequestMethod.POST)
 	public String myPage(Model model, UserPARAM param) {
+		
+		// service 작업하기
+		
+		
 		model.addAttribute("view",ViewRef.USER_MYPAGE);
 		return "redirect:/" + ViewRef.MENU_TEMP;
 	}
 	
 	
-	////////////////////////////////////
+	
+	// 찜목록 리스트
+	@RequestMapping(value="/likeList", method = RequestMethod.GET)
+	public String likeList(Model model) {
+		model.addAttribute("view",ViewRef.USER_LIKELIST);
+		return ViewRef.DEFAULT_TEMP;
+	}
+	
+	@RequestMapping(value="/likeList", method = RequestMethod.POST)
+	public String likeList(Model model, UserPARAM param) {
+		
+		
+		model.addAttribute("view",ViewRef.USER_LIKELIST);
+		return "redirect:/" + ViewRef.DEFAULT_TEMP;
+	}
+
+	
 	
 	// 개인정보변경 (info)
 	@RequestMapping(value="/info", method = RequestMethod.GET)

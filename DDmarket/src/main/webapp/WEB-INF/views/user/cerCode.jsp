@@ -65,8 +65,8 @@
 		    </div>
 		    
 		    <!-- Modal bottom -->
-		    <div class="modal-bottom" onclick="moveToLogin()">
-				<button type="button" class="pop_bt">
+		    <div class="modal-bottom">
+				<button type="button" class="pop_bt" onclick="moveToLogin()">
 					종료
 				</button>
 		    </div>

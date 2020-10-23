@@ -6,81 +6,78 @@
 <head>
 <meta charset="UTF-8">
 <title>단디마켓</title>
-<link rel="stylesheet" type="text/css" href="/res/css/common/common.css">
+<link rel="stylesheet" type="text/css" href="/res/css/common.css">
 </head>
 
 <!-- 인덱스 메인페이지 -->
 <!--(header / nav) : 머리글 / (section / article ) : 본문 / (aside) : 사이드 본문 / (footer) : 바닥글-->
 <body>
-	<header id="header">
-		<div id="header-title">			
-			<a href="/index/main"><img class="logo" src="/res/img/logo.jpg"></a>
-			<div id="search-wrap">
-				<input type="text" placeholder="상품명, 지역명 검색">
-				<button id="header-search-btn">
-					<span class="iconify icon-search" data-inline="false"
-						data-icon="mdi-light:magnify"
-						style="color: #3b73c8; font-size: 30px;"></span>
-				</button>
-			</div>
-			<div>
-				<a href="#"><span class="iconify icon-account"
-					data-inline="false" data-icon="mdi-light:account"
-					style="color: #3b73c8; font-size: 50px;"></span></a> <a href="#"><span
-					class="iconify icon-cart" data-inline="false"
-					data-icon="mdi-light:cart" style="color: #3b73c8; font-size: 50px;"></span>
-				</a>
-			</div>			
-		</div>
-		<div id="header-cd">
-			<div class="dropdown">
-				<span class="iconify icon-menu dropbtn" onclick="myFunction()"
-					data-inline="false" data-icon="mdi-light:menu"
-					style="color: #3b73c8; font-size: 50px;"></span>
-				<div id="myDropdown" class="dropdown-content">
-					<a href="#">여성의류</a>
-					<a href="#">남성의류</a>
-					<a href="#">패션잡화</a>
-					<a href="#">도서ㅣ티켓</a>
-					<a href="#">생활ㅣ가구</a>
-					<a href="#">디지털ㅣ가전</a>
-					<a href="#">뷰티ㅣ미용</a>
-					<a href="#">유아동ㅣ출산</a>
-					<a href="#">기타</a>
-					<a href="#">무료 나눔</a>
-				</div>
-			</div>
-		</div>
-		<div id="header-user">
-			<c:choose>
-				<c:when test="${loginUser == null }">
-					<span class="header-user-text">
-						<a href="/user/login">로그인</a> | <a href="/user/join">회원가입</a>
-					</span>
-				</c:when>
-				<c:when test="${loginUser != null }">
-					<span class="header-user-text">
-						<c:if test="${loginUser.profile_img != null }">
-							<img class="index_profileImg_size" src="/res/img/profile_img/user/${loginUser.i_user }/${loginUser.profile_img}">
-						</c:if>
-						<c:if test="${loginUser.profile_img == null }">
-							<img class="index_profileImg_size" src="/res/img/default.jpg"> 
-						</c:if>
-						<a href="/user/logout">로그아웃</a>  |  <a href="#">글쓰기</a>						
-					</span>
-				</c:when>
-			</c:choose>
-		</div>
-		
-	</header>
+	<div id="headerWrap">
+            <header id="header">
+                <div id="header-title">
+                    <div id="header-cd-shrimp">
+                        <div class="dropdown">
+                            <span class="iconify icon-menu dropbtn" onclick="myFunction2()" data-inline="false" data-icon="mdi-light:menu" style="color: #3b73c8; font-size: 50px;"></span>
+                            <div id="myDropdown-shrimp" class="dropdown-content">
+                                    <a href="#">여성의류</a>
+                                    <a href="#">남성의류</a>
+                                    <a href="#">패션잡화</a>
+                                    <a href="#">도서ㅣ티켓</a>
+                                    <a href="#">생활ㅣ가구</a>
+                                    <a href="#">디지털ㅣ가전</a>
+                                    <a href="#">뷰티ㅣ미용</a>
+                                    <a href="#">유아동ㅣ출산</a>
+                                    <a href="#">기타</a>
+                                    <a href="#">무료 나눔</a>
+                            </div>
+                        </div>
+                    </div>    
+                    <a href="/index/main"><img class="logo" src="/res/img/logo.jpg"></a>
+                    <form id="search-wrap" >
+                        <input type="text" placeholder="상품명, 지역명 검색">
+                        <button id="header-search-btn"><span class="iconify icon-search" data-inline="false" data-icon="mdi-light:magnify" style="color: #3b73c8; font-size: 30px;"></span></button>
+                    </form>
+                    <div>
+                    <a href="/user/myPage"><span class="iconify icon-account" data-inline="false" data-icon="mdi-light:account" style="color: #3b73c8; font-size: 50px;"></span></a>
+                    <a href="/user/likeList"><span class="iconify icon-cart" data-inline="false" data-icon="mdi-light:cart" style="color: #3b73c8; font-size: 50px;"></span></a> 
+                    </div>
+                </div>
+                <div id="header-bottom">
+                    <div id="header-cd">
+                        <div class="dropdown">
+                            <span class="iconify icon-menu dropbtn" onclick="myFunction()" data-inline="false" data-icon="mdi-light:menu" style="color: #3b73c8; font-size: 50px;"></span>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="#">여성의류</a>
+                                <a href="#">남성의류</a>
+                                <a href="#">패션잡화</a>
+                                <a href="#">도서ㅣ티켓</a>
+                                <a href="#">생활ㅣ가구</a>
+                                <a href="#">디지털ㅣ가전</a>
+                                <a href="#">뷰티ㅣ미용</a>
+                                <a href="#">유아동ㅣ출산</a>
+                                <a href="#">기타</a>
+                                <a href="#">무료 나눔</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="header-user">
+                    	<c:if test="${loginUser == null }">
+                    		<span class="header-user-text"><a href="/user/login">로그인</a> ㅣ <a href="/user/join">회원가입</a></span>
+                    	</c:if>
+                    	<c:if test="${loginUser != null }">
+                    		<span class="header-user-text"><a href="/user/logout">로그아웃</a> ㅣ <a href="/board/saleReg">글쓰기</a></span>
+                    	</c:if>
+                    </div>
+                </div>
+            </header>
+            <button id="TopBtn"><span class="iconify icon-TopBtn" data-inline="false" data-icon="uim:angle-double-up"></span><span class="TOP">TOP</span></button>
+        </div>
 	
 	
 	<!-- main -->
-	<div class="container">
-		<main>
-			<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
-		</main>
-	</div>
+		
+		<jsp:include page="/WEB-INF/views/${view}.jsp"></jsp:include>
+		
 	
 
 	<!-- footer -->
@@ -137,6 +134,5 @@
 
 </body>
 <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-<script src="/res/js/index/common.js"></script>
-
+<script src="/res/js/common.js"></script>
 </html>
