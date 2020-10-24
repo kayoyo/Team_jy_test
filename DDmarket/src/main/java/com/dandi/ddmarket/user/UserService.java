@@ -248,7 +248,7 @@ public class UserService {
 	}
 	
 		
-	// 닉네임 변경
+	// 회원정보 변경
 	public int changeInfo(UserPARAM param, int result) {
 		if(result == 3) { // 비밀번호 변경
 			return changePw(param);

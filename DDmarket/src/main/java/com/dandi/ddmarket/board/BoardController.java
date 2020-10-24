@@ -1,34 +1,85 @@
 package com.dandi.ddmarket.board;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.dandi.ddmarket.SecurityUtils;
 import com.dandi.ddmarket.ViewRef;
+import com.dandi.ddmarket.board.model.BoardPARAM;
+import com.dandi.ddmarket.user.UserService;
+import com.dandi.ddmarket.user.model.UserPARAM;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
 	
 	@Autowired
-	private BoardService service;
+	private BoardService service;		// 보드 서비스
 	
-	@RequestMapping(value="/detail")
+	@Autowired
+	private UserService userService;	// 유저 서비스
+	
+	
+	
+	
+	// 판매글 등록
+	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
+	public String saleReg(Model model, HttpSession hs, UserPARAM param) {
+		try { // 비로그인 상태로 접근시			
+			int i_user = SecurityUtils.getLoginUserPk(hs);
+			param.setI_user(i_user);
+			
+		} catch (Exception e) {
+			model.addAttribute("loginMsg", "로그인을 해주세요");
+			return ViewRef.ORIGIN_TEMP;
+		}
+		
+		model.addAttribute("categoryList", userService.selCategory());
+		model.addAttribute("view", ViewRef.BOARD_SALEREG);		
+		return ViewRef.DEFAULT_TEMP;
+	}
+		
+	
+	@RequestMapping(value="/saleReg", method = RequestMethod.POST)
+	public String saleReg(Model model, BoardPARAM param) {
+			
+				
+		return "redirect:/" + ViewRef.BOARD_DETAIL;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 판매글 상세페이지
+	@RequestMapping(value="/detail", method = RequestMethod.GET)
 	public String detail(Model model) {
 		
-		model.addAttribute("view", "/board/detail");		
+		model.addAttribute("view", ViewRef.BOARD_DETAIL);		
 		return ViewRef.DEFAULT_TEMP;
 	}
-	
-	
-	
-	@RequestMapping(value="/saleReg")
-	public String likeList(Model model) {
 		
-		model.addAttribute("view", "/board/saleReg");		
-		return ViewRef.DEFAULT_TEMP;
+	// 상세글 수정시에..
+	@RequestMapping(value="/detail", method = RequestMethod.POST)
+	public String detail(Model model, BoardPARAM param) {
+			
+				
+		return "redirect:/" + ViewRef.BOARD_DETAIL;
 	}
+	
+	
+	
+	
 	
 	
 	

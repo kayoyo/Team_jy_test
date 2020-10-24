@@ -16,11 +16,13 @@ public class BoardVO {
 	private String image_5;
 	private String post;
 	private String addr;
+	private String road;
 	private int hits;
 	private int price;
-	private int completed; // 0이면 거래 미완료, 1이면 거래완료, 2 거래중
+	private int sold; // 0이면 거래 미완료, 1이면 거래완료, 2 거래중
 	private String r_dt;
 	private String m_dt;
+	
 	
 	public int getI_board() {
 		return i_board;
@@ -94,6 +96,12 @@ public class BoardVO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
+	public String getRoad() {
+		return road;
+	}
+	public void setRoad(String road) {
+		this.road = road;
+	}
 	public int getHits() {
 		return hits;
 	}
@@ -106,11 +114,11 @@ public class BoardVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getCompleted() {
-		return completed;
+	public int getSold() {
+		return sold;
 	}
-	public void setCompleted(int completed) {
-		this.completed = completed;
+	public void setSold(int sold) {
+		this.sold = sold;
 	}
 	public String getR_dt() {
 		return r_dt;
@@ -124,5 +132,5 @@ public class BoardVO {
 	public void setM_dt(String m_dt) {
 		this.m_dt = m_dt;
 	}
-	
+		
 }
