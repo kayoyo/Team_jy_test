@@ -25,12 +25,11 @@ public class BoardController {
 	private UserService userService;	// 유저 서비스
 	
 	
-	
-	
+		
 	// 판매글 등록
 	@RequestMapping(value="/saleReg", method = RequestMethod.GET)
 	public String saleReg(Model model, HttpSession hs, UserPARAM param) {
-		try { // 비로그인 상태로 접근시			
+		try { // 비로그인 상태로 접근시 로그인페이지로		
 			int i_user = SecurityUtils.getLoginUserPk(hs);
 			param.setI_user(i_user);
 			
@@ -46,9 +45,13 @@ public class BoardController {
 		
 	
 	@RequestMapping(value="/saleReg", method = RequestMethod.POST)
-	public String saleReg(Model model, BoardPARAM param) {
-			
-				
+	public String saleReg(Model model, BoardPARAM param, HttpSession hs) {
+		
+		System.out.println("1");
+		int result = service.insBoard(param, hs);
+		System.out.println("2");
+	
+		
 		return "redirect:/" + ViewRef.BOARD_DETAIL;
 	}
 	

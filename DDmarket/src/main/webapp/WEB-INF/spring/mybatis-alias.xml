@@ -9,6 +9,7 @@
 		
 		<!-- board -->
 		<typeAlias type="com.dandi.ddmarket.board.model.BoardVO" alias="BoardVO" />
+		<typeAlias type="com.dandi.ddmarket.board.model.BoardPARAM" alias="BoardPARAM" />
 		
 		<!-- category -->
 		<typeAlias type="com.dandi.ddmarket.category.model.CategoryVO" alias="CategoryVO" />

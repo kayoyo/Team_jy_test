@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dandi.ddmarket.board.BoardMapper">
 		
+				<!-- select -->
+				
+				<!-- insert -->
+				
+	<insert id="insBoard" parameterType="BoardPARAM">
+		INSERT INTO t_board
+		(i_user, images_1, images_2, images_3, images_4, images_5, title
+		, i_cg, post, addr, road, price, ctnt)
+		VALUES
+		(#{i_user}, #{images_1}, #{images_2}, #{images_3}, #{images_4}, #{images_5}
+		, #{title}, #{i_cg}, #{post}, #{addr}, #{road}, #{price}, #{ctnt})
+	</insert>
+				<!-- update -->
+				
+				<!-- delete -->
+		
 </mapper>
